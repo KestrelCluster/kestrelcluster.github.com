@@ -121,21 +121,14 @@
 			}
 			#screenshots img {
 				display: block;
+				border:0px;
 			}
-			#screenshots:after {
-				display:block;
-				clear:both;
-				content:'.';
-				height:0px;
-			}
-
 		</style>
 		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
 		<script type="text/javascript" src="js/slimbox2.js"></script>
 		<script type="text/javascript">
 			$(function(){
-				//$('#tabs').tabs();
 				$( "#accordion" ).accordion({ autoHeight: false, icons: false});
 			});
 		</script>
@@ -256,6 +249,8 @@
 					<li><a href="./imagenes/100_0075_mini.jpg" rel="lightbox-screenshot"><img alt="" src="./imagenes/100_0075_thumb.jpg"></a></li>
 					<li><a href="./imagenes/100_0076_mini.jpg" rel="lightbox-screenshot"><img alt="" src="./imagenes/100_0076_thumb.jpg"></a></li>
 				</ul>
+				
+				<p style="clear:both;"></p>
 			</div>
 
 			<div class="section ui-widget-content" id="Forum" name="Forum">
