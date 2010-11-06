@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>KestrelHPC</title>
+		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" />
+		<style type="text/css">
+			html {
+				background:#f2e9db url(css/background.png) repeat-y center center;
+				font: 13px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+				line-height: 18px;
+			}
+			.title {
+				margin:0px;
+			}
+			.title a {
+				border:none;
+				display:block;
+				width: 900px; height: 88px;
+				background: url("css/header.png");
+				text-indent: -9999px;
+			}
+			body {
+				width:900px;
+				margin:0px auto;
+			}
+
+			/* Links 
+			**********/
+			a, a:visited, .ui-widget-content a, .ui-widget-content a:visited {
+				color:#1C94C4;
+				text-decoration:none;
+			}
+			a {
+				border-bottom:1px solid #0C4474;
+			}
+			a:hover, .ui-widget-content a:hover {
+				color:#B60;
+				border-color:#1C94C4;
+			}
+			/* accordion's links should not have a border */
+			h3 > a {
+				border-bottom:0px;
+			}
+
+			/* tabs
+			*********/
+			#tabs {
+				height:26px;
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+				border-radius:4px;
+			}
+			#tabs ul {
+				margin:2px;
+				padding:0px;
+			}
+			#tabs a {
+				background: #F6F6F6 url(css/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png) repeat-x 50% 50%;
+				border: 1px solid #becce2;
+				float: left;
+				padding: 0.5em 1em;
+				text-decoration: none;
+				color: #0C4474;
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+				border-radius:4px;
+				font: 14px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+			}
+			#tabs a:hover {
+				background: #FEE;
+				color: #B60;
+				border-color:#597eb6;
+			}
+			#tabs li {
+				margin-bottom: 0px;
+				padding-bottom: 1px;
+				border-bottom: 0px !important;
+				float: left;
+				list-style: none;
+				margin: 0px 0.2em 1px 0px;
+				padding: 0px;
+				position: relative;
+				top: 1px;
+				white-space: nowrap;
+				background: url(css/ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 50% 50%;
+				border: 1px solid #6ba6ff;
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+				border-radius:4px;
+			}
+
+			/* ui-lightness customizations 
+			*******************************/
+			.section {
+				padding:0px 18px;
+			}
+			.ui-widget-header, .ui-state-active, .ui-widget-content .ui-state-active {
+				border-color:#597eb6;
+			}
+			.ui-widget-content .ui-state-active a{
+				color:#0C4474;
+			}
+			.ui-widget-content .ui-state-hover {
+				border-color:#597eb6;
+			}
+
+			#screenshots li {
+				display:block;
+			}
+
+			#screenshots a {
+				display:block;
+				float:left;
+				margin:10px;
+				border:0px;
+				box-shadow:black 1px 1px 5px;
+				-webkit-box-shadow:black 1px 1px 3px;
+				-moz-box-shadow:black 1px 1px 3px;
+			}
+			#screenshots img {
+				display: block;
+			}
+			#screenshots:after {
+				display:block;
+				clear:both;
+				content:'.';
+				height:0px;
+			}
+
+		</style>
+		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+		<script type="text/javascript" src="js/slimbox2.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				//$('#tabs').tabs();
+				$( "#accordion" ).accordion({ autoHeight: false, icons: false});
+			});
+		</script>
+	</head>
+	<body>
+		<h1 class="title"><a href="index.html">KestrelHPC</a></h1>
+
+		<div id="tabs" class="ui-widget-header">
+			<ul>
+				<li><a href="#Introduction">Introduction</a></li>
+				<li><a href="#News">News</a></li>
+				<li><a href="#Documentation">Documentation</a></li>
+				<li><a href="#Download">Download</a></li>
+				<li><a href="#Screenshots">Screenshots</a></li>
+				<li><a href="#Forum">Forum</a></li>
+				<li><a href="#Contact">Contact</a></li>
+			</ul>
+		</div>
+
+		<div id="sections">
+			<div class="section ui-widget-content" id="Introduction">
+				<h1>Introduction</h1>
+				<img style="width: 347px; height: 250px; float: right;" alt="KestrelHPC Logo" src="./imagenes/logo_kestral-v1.1.png" />
+				<p>This project was born in answer to the need for having a cluster without
+				having to pay a considerable amount of money. At the outset of the
+				project, while looking for different possibilities for configuring the
+				cluster (6 normal PCs), we came across the project
+				PelicanHPC.
+				This project offered what we were looking for (easy to use and an easy
+				interface to configure the cluster), yet, we wanted an installed linux
+				instead of a "live" distribution. Hence, on account of the
+				aforementioned,
+				we started developing a script that would make a Debian or an
+				Ubuntu, a Pelican-like linux. This consists of, a script that installs
+				all the packages needed to have a working Head-node and besides this,
+				copies the image that will be sent to the slave nodes by LAN. Finally,
+				modified pelican scripts and new kestrel scripts are copied to
+				administrate the cluster in a very intuitive way.</p>
+
+				<p>To cap it all, a further aim of this cluster is to be a multi-user
+				cluster. This area is, by far, the one that
+				diverts most from PelicanHPC. With KestrelHPC, there is a new type of user called
+				"MPI_user", who can launch MPI jobs in the
+				cluster. The administration of these especial users is done by certain
+				scripts, and in addition to all this, not only is it possible
+				to create a "MPI_user" in KestrelHPC, but it is also possible to transform
+				a normal Linux user to a "MPI_user".</p>
+			</div>
+			<div class="section ui-widget-content" id="News" name="News">
+				<h1>News</h1>
+				<h4>Important news about KestrelHPC's releases and other related material</h4>
+
+				<div id="accordion">
+
+					<h3><a href="#">2010-10-27 : Version 2 of KestrelHPC</a></h3>
+					<div>
+						<p>The first approach of the new version of KestrelHPC is been submitted to 
+						the SVN server. This first version is not yet fully functional but is close 
+						to be stable and usable, so stay alert to check the development of 
+						KestrelHPC.</p>
+
+						<p>With the version 2 of KestrelHPC we will publish a deb package in a 
+						launchpad created for KestrelHPC.</p>
+					</div>
+
+					<h3><a href="#">2010-09-06 : The new era of KestrelHPC</a></h3>
+					<div>
+						<p>A new Era for KestrelHPC is coming close. In the past months we, the 
+						development team, have been discussing about KestrelHPC's flaws and have 
+						decided to renew and reimplement KestrelHPC.</p>
+
+						<p>In this new reimplementation, KestrelHPC will no longer be an 
+						installation script, but a debian package which will be installed as a 
+						normal Debian package. This change will carry a creation of a LaunchPad 
+						server, so that it will be accesible to Ubuntu users.</p>
+
+						<p>Apart from other technical changes, that will be documented in due time,
+						some of the PelicanHPC new features are being added, as well as support for 
+						other parallel languages.</p>
+
+						<p>All this changes are being done in order to have a stable system and 
+						also more open and modifiable than the previous one, having in mind 
+						different applications to monitor and handle the clusters resources in a 
+						1-click fashion.</p>
+
+						<p>This is all, at the end of this month or the beginning of October this 
+						major release will be done.</p>
+					</div>
+
+					<h3><a href="#">22 April of 2010: A new version of KestrelHPC is launched.</a></h3>
+					<div><p>This version fixes some errors in the installation script and changes the
+						way of the image of the nodes are made.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="section ui-widget-content" id="Documentation" name="Documentation">
+				<h1>Documentation</h1>
+				<p>Documentation: Manual that explains what you need to install
+				KestrelHPC and some information regarding the administration scripts.</p>
+				<p>Manual: <a href="http://sourceforge.net/projects/kestrelhpc/files/manual-script-instalacion.pdf/download">Download here</a></p>
+			</div>
+
+			<div class="section ui-widget-content" id="Download" name="Download">
+				<h1>Download</h1>
+				<p>Donwload: Latest version of KestrelHPC to download as well as the Beta version</p>
+				<p>Beta version: <a href="http://sourceforge.net/projects/kestrelhpc/files/Version-0.91/kestrel-installer-V0.91.tar.gz/download">v0.91</a></p>
+			</div>
+
+			<div class="section ui-widget-content" id="Screenshots" name="Screenshots">
+				<h1>Screenshots</h1>
+				<p>Here there are some screenshots with a Debian an Ubuntu running MPI
+				jobs after installing KestrelHPC on them.</p>
+
+				<ul id="screenshots">
+					<li><a href="./imagenes/100_0073_mini.jpg" rel="lightbox-screenshot"><img alt="" src="./imagenes/100_0073_thumb.jpg"></a></li>
+					<li><a href="./imagenes/100_0074_mini.jpg" rel="lightbox-screenshot"><img alt="" src="./imagenes/100_0074_thumb.jpg"></a></li>
+					<li><a href="./imagenes/100_0075_mini.jpg" rel="lightbox-screenshot"><img alt="" src="./imagenes/100_0075_thumb.jpg"></a></li>
+					<li><a href="./imagenes/100_0076_mini.jpg" rel="lightbox-screenshot"><img alt="" src="./imagenes/100_0076_thumb.jpg"></a></li>
+				</ul>
+			</div>
+
+			<div class="section ui-widget-content" id="Forum" name="Forum">
+				<h1>Forum</h1>
+				<p>Place to discuss and ask questions regarding KestrelHPC</p>
+				<p><a href="http://sourceforge.net/projects/kestrelhpc/forums" target="_blank">FORUM</a></p>
+			</div>
+
+
+			<div class="section ui-widget-content" id="Contact" name="Contact">
+				<h1>Contact</h1>
+				<p>Developers:
+					<ul>
+						<li><a href="http://jonan.org">Jon Ander Hern&aacute;ndez</a></li>
+						<li>Denis Sánchez Argoitia</li>
+					</ul>
+				<p>e-mail: darzalluz@gmail.com</p>
+				<p>In subject put "Kestrel", to make it easier to filter the e-mails.</p>
+				<p><a href="http://www.ehu.es/"><img style="border: 0px solid ; width: 250px; height: 116px;" alt="" src="./imagenes/blanco_pequeno.jpg"></a><a href="http://www.ceit.es/"><img style="border: 0px solid ; width: 181px; height: 109px;" alt="" src="./imagenes/logo.gif"></a></p>
+			</div>
+
+		</div>
+	</body>
+</html>
