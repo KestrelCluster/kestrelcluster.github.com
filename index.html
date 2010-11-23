@@ -184,7 +184,7 @@
 						<div>
 							<ul>
 								<li>dnsmasq: dhcp and tftpboot</li>
-								<li>pxelinux: Manages the</li>
+								<li>pxelinux: Manages the LAN boot of the slave nodes</li>
 								<li>nfs4: Manages the export and fstab entries.</li>
 								<li>ssh: Creates keys for each user to access the nodes.</li>
 							</ul>
@@ -193,7 +193,7 @@
 					<li>
 						<h4><a>Minimal node images.</a></h4>
 						<div>
-							<p>The images of the nodes should be minimal to minimize the memory usage on the nodes
+							<p>The images of the nodes are minimal to minimize the memory usage on the nodes
 							and the traffic on the local net.</p>
 						
 							<p>The images are created using debootstrap, and the required software is
@@ -205,7 +205,7 @@
 						<div>
 							<p>Run</p>
 							<pre> kestrel-control --register "Genetics-image-1"</pre>
-							<p>And start up each node you want to add to the cluster using PXE. Kestrel will save its mac and associate 
+							<p>And start up each node you want to add to the cluster using PXE. KestrelHPC will save its mac and associate 
 							it to an image.</p>
 						</div>
 					</li>
@@ -216,7 +216,7 @@
 						
 							<pre>kestrel-control --wake &lt;hostname&gt;|&lt;mac&gt;</pre>
 						
-							<p>You can also start a bunch of nodes associated to an image :</p>
+							<p>You can also start a group of nodes associated to an image :</p>
 						
 							<pre>kestrel-control --wake &lt;image name&gt;</pre>
 						</div>
@@ -236,14 +236,14 @@
 					<li>
 						<h4><a>Secure</a></h4>
 						<div>
-							<p>We put our best to make KestrelHPC robust.</p>
+							<p>We do our best to make KestrelHPC robust.</p>
 							<p>Read our Documentation to get a better view.</p>
 						</div>
 					</li>
 					<li>
-						<h4><a>Easily extended and/or customized.</a></h4>
+						<h4><a>Easily extended and/or customizable.</a></h4>
 						<div>
-							<p>Kestrel is a bunch of scripts where each one configures services, adds
+							<p>Kestrel is a set of scripts where each one configures services, adds
 							a program to the node or to the frontend.</p>
 						
 							<p>New scripts can be written adding them to /etc/kestrel/, and any script
@@ -270,7 +270,7 @@
 
 					<h3><a href="#">2010-11-08 : New Website</a></h3>
 					<div>
-						<p>As part of the changes coming to the KestrelHPC proyect, we have created a new website.</p>
+						<p>As part of the changes comming to the KestrelHPC project, we have created a new website.</p>
 						
 						<p>KestrelHPC dev. team</p>
 					</div>
