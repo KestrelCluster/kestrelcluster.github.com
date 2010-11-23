@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>KestrelHPC</title>
+		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" />
+		<style type="text/css">
+			html {
+				background:#f2e9db;
+				font: 13px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+				line-height: 18px;
+			}
+			.title {
+				margin:0px;
+			}
+			.title a {
+				border:none;
+				display:block;
+				width: 900px; height: 88px;
+				background: url("css/header.png");
+				text-indent: -9999px;
+			}
+			body {
+				width:900px;
+				background: #f2e9db url(css/background.png) repeat-y center center;
+				padding:0px 19px;
+				margin:0px auto;
+			}
+
+			/* Links 
+			**********/
+			a, a:visited, .ui-widget-content a, .ui-widget-content a:visited {
+				color:#1C94C4;
+				text-decoration:none;
+			}
+			a {
+				border-bottom:1px solid #0C4474;
+			}
+			a:hover, .ui-widget-content a:hover {
+				color:#B60;
+				border-color:#1C94C4;
+			}
+			/* accordion's links should not have a border */
+			h3 > a, h4 > a {
+				border-bottom:0px;
+			}
+
+			/* tabs
+			*********/
+			#tabs {
+				height:26px;
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+				border-radius:4px;
+			}
+			#tabs ul {
+				margin:2px;
+				padding:0px;
+			}
+			#tabs a {
+				background: #F6F6F6 url(css/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png) repeat-x 50% 50%;
+				border: 1px solid #becce2;
+				float: left;
+				padding: 0.5em 1em;
+				text-decoration: none;
+				color: #0C4474;
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+				border-radius:4px;
+				font: 14px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+			}
+			#tabs a:hover {
+				background: #FEE;
+				color: #B60;
+				border-color:#597eb6;
+			}
+			#tabs li {
+				margin-bottom: 0px;
+				padding-bottom: 1px;
+				border-bottom: 0px !important;
+				float: left;
+				list-style: none;
+				margin: 0px 0.2em 1px 0px;
+				padding: 0px;
+				position: relative;
+				top: 1px;
+				white-space: nowrap;
+				background: url(css/ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 50% 50%;
+				border: 1px solid #6ba6ff;
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+				border-radius:4px;
+			}
+
+			/* ui-lightness customizations 
+			*******************************/
+			.section {
+				padding:10px 18px;
+			}
+			#sections > div:first-child {
+				padding-top:13px;
+			}
+			.ui-widget-header, .ui-state-active, .ui-widget-content .ui-state-active {
+				border-color:#597eb6;
+			}
+			.ui-widget-content .ui-state-active a{
+				color:#0C4474;
+			}
+			.ui-widget-content .ui-state-hover {
+				border-color:#597eb6;
+			}
+			.ui-widget, .ui-widget h3 {
+				font-size:12px;
+			}
+			
+			ul > li {
+				list-style-image: url(css/bullet.gif);
+				list-style-type: circle;
+			}
+			pre {
+				background: #FEE;
+				border: 1px solid #597eb6;
+				color: #B60;
+				margin-bottom: 1em;
+				padding: 0.5em;
+			}
+			#screenshots li {
+				display:block;
+			}
+			#screenshots a {
+				display:block;
+				float:left;
+				margin:10px;
+				border:0px;
+				box-shadow:black 1px 1px 5px;
+				-webkit-box-shadow:black 1px 1px 3px;
+				-moz-box-shadow:black 1px 1px 3px;
+			}
+			#screenshots img {
+				display: block;
+				border:0px;
+			}
+		</style>
+		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+		<script type="text/javascript" src="js/slimbox2.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$( "#accordion" ).accordion({ autoHeight: false, icons: false});
+				$( "#Features ul" ).accordion({header:'> li > :first-child'});
+			});
+		</script>
+	</head>
+	<body>
+		<h1 class="title"><a href="index.html">KestrelHPC</a></h1>
+
+		<div id="tabs" class="ui-widget-header">
+			<ul>
+				<li><a href="index.html#About">About</a></li>
+				<li><a href="index.html#News">News</a></li>
+				<li><a href="documentation.html">Documentation</a></li>
+				<li><a href="download.html">Download</a></li>
+				<li><a href="screenshots.html">Screenshots</a></li>
+				<li><a href="development.html">Development</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+		</div>
+
+		<div id="sections">
+			
+			<div class="section ui-widget-content" id="Download" name="Download">
+				<h2>Download</h2>
+				<p>Donwload: Latest version of KestrelHPC to download as well as the Beta version</p>
+				
+				http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc
+				<p>Latest version released: <a href="http://sourceforge.net/projects/kestrelhpc/files/Version-0.91/kestrel-installer-V0.91.tar.gz/download">v0.91</a>
+				Note: The 0.x branch is not being developed any more.</p>
+			</div>
+			
+		</div>
+	</body>
+</html>

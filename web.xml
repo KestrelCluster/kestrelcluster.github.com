@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<web>
+
+    <section name="Introduction">
+        <html>
+            <p>This project was born in answer to the need for having a cluster without having to pay a considerable amount of money. At the outset of the project, while looking for different possibilities for configuring the cluster (6 normal PCs),  we came across the project PelicanHPC. This project offered what we were looking for (easy to use and an easy interface to configure the cluster), yet, we wanted an installed linux instead of a "live" distribution. Hence, on account of the aforementioned, we started developing a script that would make a Debian or an Ubuntu, a Pelican-like linux. This consists of, a script that installs all the packages needed to have a working Head-node and besides this, copies the image that will be sent to the slave nodes by LAN. Finally, modified pelican scripts and new kestrel scripts are copied to administrate the cluster in a very intuitive way.</p>
+            <p>To cap it all, a further aim of this cluster is to be a multi-user cluster. This area is, by far, the  one that diverts most from PelicanHPC. With KestrelHPC, there is a new type of user called "MPI_user", who can launch MPI jobs in the cluster. The administration of these especial users is done by certain scripts, and in addition to all this, not only is it possible to create a "MPI_user" in KestrelHPC, but it is also possible to transform a normal Linux user to a "MPI_user".</p>
+        </html>
+    </section>
+    
+    <section name="News">
+        <html>
+            <p>This project was born in answer to the need for having a cluster without having to pay a considerable amount of money. At the outset of the project, while looking for different possibilities for configuring the cluster (6 normal PCs),  we came across the project PelicanHPC. This project offered what we were looking for (easy to use and an easy interface to configure the cluster), yet, we wanted an installed linux instead of a "live" distribution. Hence, on account of the aforementioned, we started developing a script that would make a Debian or an Ubuntu, a Pelican-like linux. This consists of, a script that installs all the packages needed to have a working Head-node and besides this, copies the image that will be sent to the slave nodes by LAN. Finally, modified pelican scripts and new kestrel scripts are copied to administrate the cluster in a very intuitive way.</p>
+            <p>To cap it all, a further aim of this cluster is to be a multi-user cluster. This area is, by far, the  one that diverts most from PelicanHPC. With KestrelHPC, there is a new type of user called "MPI_user", who can launch MPI jobs in the cluster. The administration of these especial users is done by certain scripts, and in addition to all this, not only is it possible to create a "MPI_user" in KestrelHPC, but it is also possible to transform a normal Linux user to a "MPI_user".</p>
+        </html>
+    </section>
+    
+</web>
