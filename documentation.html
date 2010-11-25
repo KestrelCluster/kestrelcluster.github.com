@@ -171,7 +171,42 @@
 			
 			<div class="section ui-widget-content" id="Documentation">
 				<h2>Documentation</h2>
-				<p>	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<h3>Minimum Requirements</h3>
+				<li><p>A minimum of 1 computer with Debian or Ubuntu installed to act a the frontend of the Cluster. 
+				       This frontend, needs at least 1 Net interface. The tipical case is to have 2 NET interfaces. 1 NET interface for the internal NET and the
+				       other interface to have an exit to the world, Internet.</p>
+				    <p>This frontend will have a DHCP server for the internat NET so an extra care is needed in order not to have problems between the different
+				    DHCP servers</p></li>
+				<li><p>The computers that are going to be slave nodes, don't have to be homogeneus (same hardware) don't need
+				    even a HD. They need a NET interface and have the BIOS configured to boot from it.</p></li>
+				<h3>Installing</h3>
+				<li>Add repository</li>
+				<pre>sudo add-apt-repository ppa:kestrel/kestrelhpc</pre>
+				<li>Install KestrelHPC</li>
+				<pre>sudo apt-get install kestrelhpc kestrelhpc-openmpi</pre>
+				<h3>Adding slave nodes</h3>
+				<li>First we create an image for the slave nodes</li>
+				<pre>kestrel-image --new image1</pre>
+				<li>We register the desired nodes</li>
+				<pre>kestrel-control --register</pre>
+				<li>We turn on the slave nodes that we want</li>
+				<li>We have finished registering the nodes</li>
+				<pre>kestrel-control --list-registered</pre>
+				<h3>Configured Libraries</h3>
+				<p>In this first version openMPI is configured for its use, but in the future version, the intention is to have the Charm++ configuration automatically done also.
+				   Moreover, thanks to the modulized design of KestrelHPC, third-party packages could be created to have other library and languages configured in the system.</p>
+				<p>An example of the openMPI command.</p>
+				<pre>kestrel-launchmpi mpi_program</pre>
+				<h3>Examples commands</h3>
+				<li>Here there some of the most used commands</li>
+				<li>Nodes booting/controlling</li>
+				<pre>kestrel-control --wake "image1" # Turn on the nodes of image1</pre>
+				<pre>kestrel-control --list-connected "image1" # Check if the nodes where correctly booted</pre>
+				<pre>kestrel-control --halt "image1" # Halt the nodes that are part of the group image1</pre>
+				<li>Modifying images</li>
+				<pre>kestrel-apt --install "vim" --remove "nano" # Installs vim and removes nano from the default image</pre>
+				<pre>kestrel-images --chroot "image1" # Do chroot in the image1. 
+				# By default chroot is disable due to security policies</pre>
 			</div>
 			
 		</div>
