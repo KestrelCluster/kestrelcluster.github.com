@@ -125,6 +125,13 @@
 				margin-bottom: 1em;
 				padding: 0.5em;
 			}
+			.note {
+				background: #FCC;
+				border: 1px solid #597eb6;
+				color: #830;
+				margin-bottom: 1em;
+				padding: 0.5em;
+			}
 			#screenshots li {
 				display:block;
 			}
@@ -185,43 +192,192 @@
 			<div class="section ui-widget-content" id="Documentation">
 				<h2>Documentation</h2>
 				<h3>Minimum Requirements</h3>
-				<li><p>A minimum of 1 computer with Debian or Ubuntu installed to act a the frontend of the Cluster. 
-				       This frontend, needs at least 1 Net interface. The tipical case is to have 2 NET interfaces. 1 NET interface for the internal NET and the
-				       other interface to have an exit to the world, Internet.</p>
-				    <p>This frontend will have a DHCP server for the internat NET so an extra care is needed in order not to have problems between the different
-				    DHCP servers</p></li>
-				<li><p>The computers that are going to be slave nodes, don't have to be homogeneus (same hardware) don't need
-				    even a HD. They need a NET interface and have the BIOS configured to boot from it.</p></li>
-				<h3>Installing</h3>
-				<li>Add repository</li>
-				<pre>sudo add-apt-repository ppa:kestrel/kestrelhpc</pre>
-				<li>Install KestrelHPC</li>
-				<pre>sudo apt-get install kestrelhpc kestrelhpc-openmpi</pre>
-				<h3>Adding slave nodes</h3>
-				<li>First we create an image for the slave nodes</li>
-				<pre>kestrel-images --new image1</pre>
-				<li>We register the desired nodes</li>
-				<pre>kestrel-control --register</pre>
-				<li>We turn on the slave nodes that we want</li>
-				<li>We have finished registering the nodes</li>
-				<pre>kestrel-control --list-registered</pre>
-				<h3>Configured Libraries</h3>
-				<p>In this first version openMPI is configured for its use, but in the future version, the intention is to have the Charm++ configuration automatically done also.
-				   Moreover, thanks to the modulized design of KestrelHPC, third-party packages could be created to have other library and languages configured in the system.</p>
-				<p>An example of the openMPI command.</p>
-				<pre>kestrel-launchmpi mpi_program</pre>
-				<h3>Examples commands</h3>
-				<li>Here there some of the most used commands</li>
-				<li>Nodes booting/controlling</li>
-				<pre>kestrel-control --wake "image1" # Turn on the nodes of image1</pre>
-				<pre>kestrel-control --list-connected "image1" # Check if the nodes where correctly booted</pre>
-				<pre>kestrel-control --halt "image1" # Halt the nodes that are part of the group image1</pre>
-				<li>Modifying images</li>
-				<pre>kestrel-apt --install "vim" --remove "nano" # Installs vim and removes nano from the default image</pre>
-				<pre>kestrel-images --chroot "image1" # Do chroot in the image1. 
-				# By default chroot is disable due to security policies</pre>
+				<ul>
+					<li>
+						<p>A minimum of 1 computer with Debian or Ubuntu installed to act a the frontend of the Cluster. 
+						This frontend, needs at least 1 Net interface. The tipical case is to have 2 NET interfaces. 1 NET interface for the internal NET and the
+						other interface to have an exit to the world, Internet.</p>
+						<p>This frontend will have a DHCP server for the internat NET so an extra care is needed in order not to have problems between the different
+						DHCP servers</p>
+					</li>
+					<li>
+						<p>The computers that are going to be slave nodes, don't have to be homogeneus (same hardware) don't need
+						even a HD. They need a NET interface and have the BIOS configured to boot from it.</p>
+					</li>
+				</ul>
+				
+				<h3>Installation</h3>
+				<ul>
+					<li>Add repository
+						<pre>sudo add-apt-repository ppa:kestrel/kestrelhpc</pre>
+					</li>
+					<li>Install KestrelHPC
+						<pre>sudo apt-get install kestrelhpc kestrelhpc-openmpi</pre>
+					</li>
+					<li><div class="note">Note: KestrelHPC 2 is not currently at production level (beta quality). Please upgrade frecuently to get the latest fixes.</div></li>
+				</ul>
+				<h3>Configuration</h3>
+				<ul>
+					<li>Set the frontend's static IP
+						<p> Configure KestrelHPC</p>
+						<pre>$ sudo nano /etc/kestrel/kestrel.conf
+# Frontend's ip
+FRONTEND_IP=192.168.30.1
+FRONTEND_NETMASK=255.255.255.0
+
+# IP range of the DHCP service
+DHCP_STARTING_IP=192.168.30.2
+DHCP_ENDING_IP=192.168.30.255</pre>
+									
+						<div class="note">Note: The frontend's IP should be static.
+						<ul>
+							<li>Set up with <a href="https://help.ubuntu.com/10.10/internet/C/connecting-wired.html">network manager</a> (Graphical User Interface)</li>
+							<li>Set up with <a href="https://help.ubuntu.com/10.10/serverguide/C/network-configuration.html">/etc/network/interfaces</a></li>
+						</ul></div>
+						
+						<div>Look at the system's configuration files for knowing which options are available :
+						<ul>
+							<li> basic default config file : <b>/usr/share/kestrel/default.conf</b></li>
+							<li> default config file of each module : <b>/usr/share/kestrel/default.d/*</b> </li>
+						</ul></div>
+					</li>
+				</ul>
+				<h3>Managing node images</h3>
+				<ul>
+					<li>Create an image for the slave nodes :
+						<pre>$ sudo kestrel-images --new image1
+
+Detecting host :
+[...]
+Creating image
+[...]
+Installing extra software
+[...]
+Executing install scripts
+[...]
+Executing configure scripts
+[...]
+</pre>
+					</li>
+					<li>List available images :
+						<pre>$ sudo kestrel-images --list
+image1</pre>
+					</li>
+					
+					<li>Install or uninstall software on the nodes :
+						<pre>sudo kestrel-apt --install "vim" --remove "nano"</pre>
+						<p>Installs vim and removes nano from the default image.</p>
+					</li>
+					</li>
+					<li>Chroot into the image, for example for setting the root's password :
+						<pre>$ sudo kestrel-images --chroot image1
+# passwd
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully</pre>
+					</li>
+				</ul>
+				<h3>Manage kestrel users</h3>
+				<ul>
+					<li>Add a user to the cluster :
+						<pre>$ sudo kestrel-users --add-to-cluster jonan
+Adding user `jonan' to group `kestrel' ...
+Adding user jonan to group kestrel
+Done.</pre>
+					</li>
+					
+					<li>Delete user from the cluster :
+						<pre>$ sudo kestrel-users --delete jonan
+[sudo] password for jonan: 
+Removing user `jonan' from group `kestrel' ...
+Done.</pre>
+					</li>
+				</ul>
+				<h3>Manage slave nodes</h3>
+				<ul>
+					<li>Register some nodes :
+						<ol>
+							<li>Turn on the slave nodes that we want to add to this group. </li>
+							
+							<li>Press control+c to finish</li>
+						</ol>
+						<pre>$ sudo kestrel-control --register group1
+
+Turn now on the nodes to add them to the group "image1"
+
+Press crtl+c when you are done
+
+The node "kestrel-group1-1" was already registered
+
+	mac : 08:00:27:08:f3:b6
+	ip  : 192.168.30.226
+
+The node "kestrel-group1-2" was already registered
+
+	mac : 1b:52:27:b6:5c:f3
+	ip  : 192.168.30.227
+
+^C</pre>
+					</li>
+					<li>List registered nodes :
+						<pre>$ kestrel-control --registered
+
+kestrel-grupo1-1, mac:08:00:27:08:f3:b6, ip:192.168.30.226
+kestrel-grupo1-2, mac:1b:52:27:b6:5c:f3, ip:192.168.30.227
+
+</pre>
+					</li>
+					<li> Wake a node by its hostname :
+						<pre>$ kestrel-control --wake-node "kestrel-group1-1"
+
+Starting up "kestrel-group1-1", mac:"08:00:27:08:f3:b6"
+
+</pre>
+						<div class="note">Note: The Wake On Lan signal only works on a node if :
+							<ul>
+								<li>Wake On Lan support is enabled on the node's BIOS</li>
+								<li>The node was shutdown correctly.</li>
+								<li>The node was shutdown with network card's Wake On Lan support enabled. If you use the node with other OSes you will need to <a href="http://www.tjansson.dk/?p=83">enable WOL on them</a>.</li>
+							</ul>
+						</div>
+					</li>
+					<li>Halt a node by its hostname :
+						<pre>$ kestrel-control --halt-node "kestrel-group1-1"
+
+Halting the "kestrel-group1-1", ip:192.168.30.226
+
+</pre>
+					</li>
+					<li>List connected nodes :
+						<pre>$ kestrel-control --connected "group1" 
+
+kestrel-grupo1-2, mac:1b:52:27:b6:5c:f3, ip:192.168.30.227
+
+</pre>
+					</li>
+					
+					<li>List disconnected nodes :
+						<pre>$ kestrel-control --disconnected "group1" 
+
+kestrel-grupo1-1, mac:08:00:27:08:f3:b6, ip:192.168.30.226
+
+</pre>
+					</li>
+					<li>Halt a group of nodes :
+						<pre>$ kestrel-control --halt-group "group1"
+
+Halting the "kestrel-group1-2", ip:192.168.30.227
+
+</pre>
+					</li>
+				</ul>
+				<h3>MPI</h3>
+				<ul>
+					<li>Launch a MPI job :
+						<pre>mpirun -n 12 -h "kestrel-group1-1, kestrel-group1-2, ... , kestrel-group1-12" mpiapp</pre>
+					</li>
+				</ul>
 			</div>
-			
 		</div>
 	</body>
 </html>

@@ -171,9 +171,29 @@
 			
 			<div class="section ui-widget-content" id="Development">
 				<h2>Development</h2>
-				<p>Here future development ideas and processes will be listed.</p>
+				<h4>Mailing list:</h4>
+				<ul>
+					<li><a href="https://lists.sourceforge.net/lists/listinfo/kestrelhpc-developers">Development</a></li>
+				</ul>
+				<h4>Subversion</h4>
+				<ul>
+					<li><a hred="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/">Browse code online</a>
+					<li>Download code :
+						<pre>svn co https://kestrelhpc.svn.sourceforge.net/svnroot/kestrelhpc kestrelhpc</pre>
+					</li>
+				</ul>
+				<h4>Internals</h4>
+				<ul>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/README?content-type=text/plain">README</a> (needs to be updated)</li>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/TODO?content-type=text/plain">ToDo List</a></li>
+					<li>KestrelHPC uses a <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/rpc/kestrel_rpc.py?content-type=text/plain">rpc server</a> written in python for event handling. Each event is passed to <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/kestrel-daemon?content-type=text/plain">kestrel-daemon</a> through a FIFO.</li>
+					<li>KestrelHPC <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/kestrel-daemon?content-type=text/plain">daemon</a> is written in bash script, reads events and their parameters from the FIFO and calls register.d scripts using the function run_register_scripts located in <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/kestrel-lib?content-type=text/plain">kestrel-lib</a>.</li>
+					<li><a <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/kestrel-lib?content-type=text/plain">KestrelHPC's library</a> (kestrel-lib). Most of the functionality is implemented here.</a></li>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/node/register.d/">Register scripts</a>. There scripts are executed when an event ocurrs (register/unregister/connect/disconnect).
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/node/install.d/README?content-type=text/plain">Node install scripts</a>. These scripts are executed when an image is created or deleted. If the script contains the word "chroot" then it is executed on the image under a chroot jail.</li>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/node/configure.d/README?content-type=text/plain">Node configure scripts</a>. These scripts are executed when the user reconfigures the system. If the script contains the word "chroot" then it is executed on the image under a chroot jail.</li></li>
+				</ul>
 			</div>
-			
 		</div>
 	</body>
 </html>
