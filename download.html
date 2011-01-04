@@ -10,6 +10,7 @@
 				background:#f2e9db;
 				font: 13px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
 				line-height: 18px;
+				height:100%;
 			}
 			.title {
 				margin:0px;
@@ -26,8 +27,9 @@
 				background: #f2e9db url(css/background.png) repeat-y center center;
 				padding:0px 19px;
 				margin:0px auto;
+				min-height:100%;
 			}
-
+			
 			/* Links 
 			**********/
 			a, a:visited, .ui-widget-content a, .ui-widget-content a:visited {
@@ -125,6 +127,13 @@
 				margin-bottom: 1em;
 				padding: 0.5em;
 			}
+			.note {
+				background: #FCC;
+				border: 1px solid #597eb6;
+				color: #830;
+				margin-bottom: 1em;
+				padding: 0.5em;
+			}
 			#screenshots li {
 				display:block;
 			}
@@ -183,10 +192,21 @@
 		<div id="sections">
 			
 			<div class="section ui-widget-content" id="Download" name="Download">
-				<h2>Download</h2>
-				<p>Donwload: Latest version of KestrelHPC to download as well as the Beta version</p>
-				<a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc">SVN Repository</a>
-				<p>To use the packages, check the documentation section</p>
+				
+				<h2>KestrelHPC's Personal Package Archives</h2>
+				<ul>
+					<li>Add repository
+						<pre>sudo add-apt-repository ppa:kestrel/kestrelhpc</pre>
+					</li>
+					<li>Install KestrelHPC
+						<pre>sudo apt-get install kestrelhpc kestrelhpc-openmpi</pre>
+					</li>
+					<li><div class="note">Note: KestrelHPC 2 is not currently at production level (beta quality). Please upgrade frecuently to get the latest fixes.</div></li>
+				</ul>
+				<h2>Source code</h2>
+				<p>Browse or download the latest code from the subversion :
+					<a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc">SVN Repository</a>
+				</p>
 			</div>
 			
 		</div>

@@ -190,7 +190,16 @@
 		<div id="sections">
 			
 			<div class="section ui-widget-content" id="Documentation">
-				<h2>Documentation</h2>
+				<h2 id="Tutorial">Documentation - Tutorial</h2>
+				
+				<div id="tabs" class="ui-widget-header" style="margin-bottom:40px">
+					<ul>
+						<li><a href="documentation.html#Tutorial">Tutorial</a></li>
+						<li><a href="man/index.html">Man Pages</a></li>
+						<li><a href="configuration.html">Configuration</a></li>
+					</ul>
+				</div>
+				
 				<h3>Minimum Requirements</h3>
 				<ul>
 					<li>
@@ -333,13 +342,19 @@ kestrel-grupo1-2, mac:1b:52:27:b6:5c:f3, ip:192.168.30.227
 Starting up "kestrel-group1-1", mac:"08:00:27:08:f3:b6"
 
 </pre>
-						<div class="note">Note: The Wake On Lan signal only works on a node if :
+						<div class="note">Note: The Wake On Lan signal only works on a common PC if :
 							<ul>
-								<li>Wake On Lan support is enabled on the node's BIOS</li>
+								<li>Wake On Lan support is enabled on the node's BIOS.</li>
 								<li>The node was shutdown correctly.</li>
-								<li>The node was shutdown with network card's Wake On Lan support enabled. If you use the node with other OSes you will need to <a href="http://www.tjansson.dk/?p=83">enable WOL on them</a>.</li>
+								<li>The node was shutdown with the network card's Wake On Lan support enabled. If you use the node with other OSes you will need to <a href="http://www.tjansson.dk/?p=83">enable the WOL support on them</a>.</li>
 							</ul>
 						</div>
+					</li>
+					<li> Log into a node :
+						<pre>$ kestrel-control --ssh "kestrel-group1-1"
+jonan@kestrel-group1-1:~$ 
+</pre>
+						<div class="note">Note: if you get the message "Agent admitted failure to sign using the key.", run $ ssh-add</div>
 					</li>
 					<li>Halt a node by its hostname :
 						<pre>$ kestrel-control --halt-node "kestrel-group1-1"
@@ -375,6 +390,12 @@ Halting the "kestrel-group1-2", ip:192.168.30.227
 				<ul>
 					<li>Launch a MPI job :
 						<pre>mpirun -n 12 -h "kestrel-group1-1, kestrel-group1-2, ... , kestrel-group1-12" mpiapp</pre>
+						<div class="note">Note: If you get :
+							<ul>
+								<li>"Permission denied, please try again". Check if you have added the user to the cluster with $ kestrel-users --add-to-cluster</li>
+								<li>"Agent admitted failure to sign using the key.", run $ ssh-add.</li>
+							</ul>
+						</div>
 					</li>
 				</ul>
 			</div>

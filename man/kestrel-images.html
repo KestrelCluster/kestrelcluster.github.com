@@ -3,8 +3,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>KestrelHPC</title>
-		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
-		<link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" />
+		<link type="text/css" href="../css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/slimbox2.css" type="text/css" media="screen" />
 		<style type="text/css">
 			html {
 				background:#f2e9db;
@@ -61,7 +61,7 @@
 				padding:0px;
 			}
 			#tabs a {
-				background: #F6F6F6 url(css/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png) repeat-x 50% 50%;
+				background: #F6F6F6 url(../css/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png) repeat-x 50% 50%;
 				border: 1px solid #becce2;
 				float: left;
 				padding: 0.5em 1em;
@@ -88,7 +88,7 @@
 				position: relative;
 				top: 1px;
 				white-space: nowrap;
-				background: url(css/ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 50% 50%;
+				background: url(../css/ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 50% 50%;
 				border: 1px solid #6ba6ff;
 				-moz-border-radius:4px;
 				-webkit-border-radius:4px;
@@ -117,13 +117,20 @@
 			}
 			
 			ul > li {
-				list-style-image: url(css/bullet.gif);
+				list-style-image: url(../css/bullet.gif);
 				list-style-type: circle;
 			}
 			pre {
 				background: #FEE;
 				border: 1px solid #597eb6;
 				color: #B60;
+				margin-bottom: 1em;
+				padding: 0.5em;
+			}
+			.note {
+				background: #FCC;
+				border: 1px solid #597eb6;
+				color: #830;
 				margin-bottom: 1em;
 				padding: 0.5em;
 			}
@@ -144,9 +151,9 @@
 				border:0px;
 			}
 		</style>
-		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
-		<script type="text/javascript" src="js/slimbox2.js"></script>
+		<script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="../js/jquery-ui-1.8.6.custom.min.js"></script>
+		<script type="text/javascript" src="../js/slimbox2.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				$( "#accordion" ).accordion({ autoHeight: false, icons: false});
@@ -164,6 +171,7 @@
 		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
+
 		</script>
 	</head>
 	<body>
@@ -171,48 +179,110 @@
 
 		<div id="tabs" class="ui-widget-header">
 			<ul>
-				<li><a href="index.html#About">About</a></li>
-				<li><a href="index.html#News">News</a></li>
-				<li><a href="documentation.html">Documentation</a></li>
-				<li><a href="download.html">Download</a></li>
-				<li><a href="screenshots.html">Screenshots</a></li>
-				<li><a href="development.html">Development</a></li>
-				<li><a href="contact.html">Contact</a></li>
+				<li><a href="../index.html#About">About</a></li>
+				<li><a href="../index.html#News">News</a></li>
+				<li><a href="../documentation.html">Documentation</a></li>
+				<li><a href="../download.html">Download</a></li>
+				<li><a href="../screenshots.html">Screenshots</a></li>
+				<li><a href="../development.html">Development</a></li>
+				<li><a href="../contact.html">Contact</a></li>
 			</ul>
 		</div>
 
 		<div id="sections">
 			
-			<div class="section ui-widget-content" id="Contact" name="Contact">
-				<h2>Contact</h2>
+			<div class="section ui-widget-content" id="Documentation">
+			
+				<h2 id="Tutorial">Documentation - Man Pages</h2>
 				
-				<h4>Mailing lists:</h4>
-				<ul>
-					<li><a href="https://lists.sourceforge.net/lists/listinfo/kestrelhpc-developers">Development</a></li>
-					<li><a href="https://lists.sourceforge.net/lists/listinfo/kestrelhpc-developers">Users</a></li>
-				</ul>
+				<div id="tabs" class="ui-widget-header" style="margin-bottom:40px">
+					<ul>
+						<li><a href="../documentation.html#Tutorial">Tutorial</a></li>
+						<li><a href="../man/index.html">Man Pages</a></li>
+						<li><a href="../configuration.html">Configuration</a></li>
+					</ul>
+				</div>
 				
-				<h4>Forum:</h4>
-				<p>Place to discuss and ask questions regarding KestrelHPC</p>
-				<ul>
-					<li><a href="http://sourceforge.net/projects/kestrelhpc/forums" target="_blank">FORUM</a></li>
-				</ul>
+				<h1>kestrel-images</h1>
 				
-				<h4>Developers:</h4>
-				<ul>
-					<li><a href="http://jonan.org">Jon Ander Hern&aacute;ndez</a> Student of Computer Engineering at <a href="http://www.informatika.ehu.es/">Facultad de Informática de San Sebastian</a></li>
-					<li>Denis Sánchez Argoitia</li>
-					<li><a href="http://jrsanchez.users.sourceforge.net/">Jairo Roberto Sánchez Tapia</a></li>
-				</ul>
-				
-				<p><a href="http://www.ehu.es/"><img style="border: 0px solid ; width: 250px; height: 116px;" alt="" src="./imagenes/blanco_pequeno.jpg"></a><a href="http://www.ceit.es/"><img style="border: 0px solid ; width: 181px; height: 109px;" alt="" src="./imagenes/logo.gif"></a></p>
-				
-				<h4>Special thanks to:</h4>
-				<ul>
-					<li>MickD for his help testing KestrelHPC 2.0</li>
-				</ul>
+<H2>SYNOPSIS</H2>
+
+<B>kestrel-images</B>
+
+<I>options</I>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+OPTIONS:
+<DL COMPACT>
+<DT>
+<B>--new</B> &lt;image name&gt;
+<DT><DD>
+<DD>Create a new image for nodes
+<DT>
+<B>--remove</B> &lt;image name&gt;
+<DT><DD>
+<DD>Delete the image from the system
+<DT>
+<B>--list</B>
+<DT><DD>
+<DD>List installed images
+<DT>
+<B>--chroot</B> &lt;image&gt;
+<DT><DD>
+<DD>Chroot into an image
+<DT>
+<B>--set-default</B> &lt;image&gt;
+<DT>
+<B>--default-image</B>
+<DT><DD>
+<DD>Set and show default image
+<DT>
+<B>--quiet</B>
+<DT><DD>
+<DD>When creating a new image, hide debootstrap's output
+<DT>
+<B>--use-cache</B>
+<DT>
+<B>--use-no-cache</B>
+<DT><DD>
+<DD>Use cache when creating a new image
+<DT><DD>
+Only use these ones if you know what you are doing :
+<DT>
+<B>--unlock</B> &lt;image&gt;
+<DT>
+<B>--umount</B> &lt;image&gt;
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<DD>The full documentation for
+<B>KestrelHPC</B>
+
+is maintained as a Texinfo manual.  If the
+<B>info</B>
+
+and
+<B>KestrelHPC</B>
+
+programs are properly installed at your site, the command
+<DL COMPACT>
+<DT><DD>
+<B>info KestrelHPC</B>
+
+</DL>
+<P>
+
+should give you access to the complete manual.
+<P>
+
+<HR>
+This document was created by
+<A HREF="/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+
 			</div>
 		</div>
-
 	</body>
 </html>

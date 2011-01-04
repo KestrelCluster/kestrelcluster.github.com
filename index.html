@@ -10,6 +10,7 @@
 				background:#f2e9db;
 				font: 13px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
 				line-height: 18px;
+				height:100%;
 			}
 			.title {
 				margin:0px;
@@ -26,6 +27,7 @@
 				background: #f2e9db url(css/background.png) repeat-y center center;
 				padding:0px 19px;
 				margin:0px auto;
+				min-height:100%;
 			}
 
 			/* Links 
@@ -148,7 +150,7 @@
 		<script type="text/javascript">
 			$(function(){
 				$( "#accordion" ).accordion({ autoHeight: false, icons: false});
-				$( "#Features ul" ).accordion({header:'> li > :first-child'});
+				//$( "#Features ul" ).accordion({header:'> li > :first-child'});
 			});
 		</script>
 		<script type="text/javascript">
@@ -196,7 +198,21 @@
 				<h2>Features</h2>
 				<ul>
 					<li>
-						<h4><a>Sets up all the required services for a diskless Beowulf like cluster.</a></h4>
+						<h4><a>Debian/Ubuntu package.</a></h4>
+						<div>
+							KestrelHPC is installed as a Debian package on your current system.
+						</div>
+					</li>
+					<li>
+						<h4><a>Live nodes.</a></h4>
+						<div>
+							<ul>
+								<li></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<h4><a>Configures and installs all the required services.</a></h4>
 						<div>
 							<ul>
 								<li>dnsmasq: dhcp and tftpboot</li>
@@ -207,17 +223,16 @@
 						</div>
 					</li>
 					<li>
-						<h4><a>Minimal node images.</a></h4>
+						<h4><a>Minimal systems are run on the nodes.</a></h4>
 						<div>
-							<p>The images of the nodes are minimal to minimize the memory usage on the nodes
-							and the traffic on the local net.</p>
-						
-							<p>The images are created using debootstrap, and the required software is
-							installed automatically.</p>
+							<ul>
+								<li>Minimal Debian based systems are run on the nodes to reduce the memory usage and the traffic on the local net.</li>
+								<li>Required software is installed automatically on each image.</li>
+							</ul>
 						</div>
 					</li>
 					<li>
-						<h4><a>It helps adding or removing nodes to the cluster in a simple way.</a></h4>
+						<h4><a>Manage simply the nodes of the cluster.</a></h4>
 						<div>
 							<p>Run</p>
 							<pre> kestrel-control --register "Genetics-image-1"</pre>
@@ -248,22 +263,22 @@
 							
 							<pre>kestrel-apt --image "image1" --install vim --uninstall nano</pre>
 						</div>
-					</li>
+					</li><!--
 					<li>
 						<h4><a>Secure</a></h4>
 						<div>
 							<p>We do our best to make KestrelHPC robust.</p>
 							<p>Read our Documentation to get a better view.</p>
 						</div>
-					</li>
+					</li>-->
 					<li>
-						<h4><a>Easily extended and/or customizable.</a></h4>
+						<h4><a>Easily extendable and customizable.</a></h4>
 						<div>
-							<p>Kestrel is a set of scripts where each one configures services, adds
-							a program to the node or to the frontend.</p>
-						
-							<p>New scripts can be written adding them to /etc/kestrel/, and any script
-							can be replaced just by naming it as the kestrel's one.</p>
+							<ul>
+								<li>Modules extends the cluster capabilities. Now we have 2 modules : Ganglia and OpenMPI, but new modules can be written easily.</li>
+								<li>Any functionality or script can be easily customized.</li>
+								<li>Each service is configured by its own set of scripts.</li>
+							</ul>
 						</div>
 					</li>
 				</ul>
