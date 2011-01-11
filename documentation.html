@@ -220,6 +220,9 @@
 					<li>Add repository
 						<pre>sudo add-apt-repository ppa:kestrel/kestrelhpc</pre>
 					</li>
+					<li>Retrieve new lists of packages
+						<pre>sudo apt-get update</pre>
+					</li>
 					<li>Install KestrelHPC
 						<pre>sudo apt-get install kestrelhpc kestrelhpc-openmpi</pre>
 					</li>
@@ -337,7 +340,7 @@ kestrel-grupo1-2, mac:1b:52:27:b6:5c:f3, ip:192.168.30.227
 </pre>
 					</li>
 					<li> Wake a node by its hostname :
-						<pre>$ kestrel-control --wake-node "kestrel-group1-1"
+						<pre>$ sudo kestrel-control --wake-node "kestrel-group1-1"
 
 Starting up "kestrel-group1-1", mac:"08:00:27:08:f3:b6"
 
@@ -357,7 +360,7 @@ jonan@kestrel-group1-1:~$
 						<div class="note">Note: if you get the message "Agent admitted failure to sign using the key.", run $ ssh-add</div>
 					</li>
 					<li>Halt a node by its hostname :
-						<pre>$ kestrel-control --halt-node "kestrel-group1-1"
+						<pre>$ sudo kestrel-control --halt-node "kestrel-group1-1"
 
 Halting the "kestrel-group1-1", ip:192.168.30.226
 
@@ -389,7 +392,7 @@ Halting the "kestrel-group1-2", ip:192.168.30.227
 				<h3>MPI</h3>
 				<ul>
 					<li>Launch a MPI job :
-						<pre>mpirun -n 12 -h "kestrel-group1-1, kestrel-group1-2, ... , kestrel-group1-12" mpiapp</pre>
+						<pre>mpirun -n 12 --host "kestrel-group1-1, kestrel-group1-2, ... , kestrel-group1-12" mpiapp</pre>
 						<div class="note">Note: If you get :
 							<ul>
 								<li>"Permission denied, please try again". Check if you have added the user to the cluster with $ kestrel-users --add-to-cluster myuser</li>
