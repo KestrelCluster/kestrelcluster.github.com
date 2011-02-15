@@ -194,7 +194,8 @@
 				
 				<div id="tabs" class="ui-widget-header" style="margin-bottom:40px">
 					<ul>
-						<li><a href="documentation.html#Tutorial">Tutorial</a></li>
+						<li><a href="documentation.html#Installation">Installation</a></li>
+						<li><a href="tutorial.html">Tutorial</a></li>
 						<li><a href="man/index.html">Man Pages</a></li>
 						<li><a href="configuration.html">Configuration</a></li>
 					</ul>
@@ -217,17 +218,9 @@
 				
 				<h3>Installation</h3>
 				<ul>
-					<li>Add repository
-						<pre>sudo add-apt-repository ppa:kestrel/kestrelhpc</pre>
-					</li>
-					<li>Retrieve new lists of packages
-						<pre>sudo apt-get update</pre>
-					</li>
-					<li>Install KestrelHPC
-						<pre>sudo apt-get install kestrelhpc kestrelhpc-openmpi</pre>
-					</li>
-					<li><div class="note">Note: KestrelHPC 2 is not currently at production level (beta quality). Please upgrade frecuently to get the latest fixes.</div></li>
+					<li><a href="download.html">download and install</a></li>
 				</ul>
+				
 				<h3>Configuration</h3>
 				<ul>
 					<li>Set the frontend's static IP
@@ -254,9 +247,10 @@ DHCP_ENDING_IP=192.168.30.255</pre>
 						</ul></div>
 					</li>
 				</ul>
-				<h3>Managing node images</h3>
+				
+				<h3>Create a node image</h3>
 				<ul>
-					<li>Create an image for the slave nodes :
+					<li>Create an image for the nodes :
 						<pre>$ sudo kestrel-images --new image1
 
 Detecting host :
@@ -271,25 +265,9 @@ Executing configure scripts
 [...]
 </pre>
 					</li>
-					<li>List available images :
-						<pre>$ sudo kestrel-images --list
-image1</pre>
-					</li>
-					
-					<li>Install or uninstall software on the nodes :
-						<pre>sudo kestrel-apt --install "vim" --remove "nano"</pre>
-						<p>Installs vim and removes nano from the default image.</p>
-					</li>
-					</li>
-					<li>Chroot into the image, for example for setting the root's password :
-						<pre>$ sudo kestrel-images --chroot image1
-# passwd
-Enter new UNIX password: 
-Retype new UNIX password: 
-passwd: password updated successfully</pre>
-					</li>
 				</ul>
-				<h3>Manage kestrel users</h3>
+
+				<h3>Register users</h3>
 				<ul>
 					<li>Add a user to the cluster :
 						<pre>$ sudo kestrel-users --add-to-cluster jonan
@@ -297,15 +275,9 @@ Adding user `jonan' to group `kestrel' ...
 Adding user jonan to group kestrel
 Done.</pre>
 					</li>
-					
-					<li>Delete user from the cluster :
-						<pre>$ sudo kestrel-users --delete jonan
-[sudo] password for jonan: 
-Removing user `jonan' from group `kestrel' ...
-Done.</pre>
-					</li>
 				</ul>
-				<h3>Manage slave nodes</h3>
+				
+				<h3>Register nodes</h3>
 				<ul>
 					<li>Register some nodes :
 						<ol>
@@ -330,77 +302,8 @@ The node "kestrel-group1-2" was already registered
 	ip  : 192.168.30.227
 
 ^C</pre>
+						<div class="note">Configure the BIOS of each node to boot from PXE.</div>
 					</li>
-					<li>List registered nodes :
-						<pre>$ kestrel-control --registered
-
-kestrel-grupo1-1, mac:08:00:27:08:f3:b6, ip:192.168.30.226
-kestrel-grupo1-2, mac:1b:52:27:b6:5c:f3, ip:192.168.30.227
-
-</pre>
-					</li>
-					<li> Wake a node by its hostname :
-						<pre>$ sudo kestrel-control --wake-node "kestrel-group1-1"
-
-Starting up "kestrel-group1-1", mac:"08:00:27:08:f3:b6"
-
-</pre>
-						<div class="note">Note: The Wake On Lan signal only works on a common PC if :
-							<ul>
-								<li>Wake On Lan support is enabled on the node's BIOS.</li>
-								<li>The node was shutdown correctly.</li>
-								<li>The node was shutdown with the network card's Wake On Lan support enabled. If you use the node with other OSes you will need to <a href="http://www.tjansson.dk/?p=83">enable the WOL support on them</a>.</li>
-							</ul>
-						</div>
-					</li>
-					<li> Log into a node :
-						<pre>$ kestrel-control --ssh "kestrel-group1-1"
-jonan@kestrel-group1-1:~$ 
-</pre>
-						<div class="note">Note: if you get the message "Agent admitted failure to sign using the key.", run $ ssh-add</div>
-					</li>
-					<li>Halt a node by its hostname :
-						<pre>$ sudo kestrel-control --halt-node "kestrel-group1-1"
-
-Halting the "kestrel-group1-1", ip:192.168.30.226
-
-</pre>
-					</li>
-					<li>List connected nodes :
-						<pre>$ kestrel-control --connected "group1" 
-
-kestrel-grupo1-2, mac:1b:52:27:b6:5c:f3, ip:192.168.30.227
-
-</pre>
-					</li>
-					
-					<li>List disconnected nodes :
-						<pre>$ kestrel-control --disconnected "group1" 
-
-kestrel-grupo1-1, mac:08:00:27:08:f3:b6, ip:192.168.30.226
-
-</pre>
-					</li>
-					<li>Halt a group of nodes :
-						<pre>$ kestrel-control --halt-group "group1"
-
-Halting the "kestrel-group1-2", ip:192.168.30.227
-
-</pre>
-					</li>
-				</ul>
-				<h3>MPI</h3>
-				<ul>
-					<li>Launch a MPI job :
-						<pre>mpirun -n 12 --host "kestrel-group1-1, kestrel-group1-2, ... , kestrel-group1-12" mpiapp</pre>
-						<div class="note">Note: If you get :
-							<ul>
-								<li>"Permission denied, please try again". Check if you have added the user to the cluster with $ kestrel-users --add-to-cluster myuser</li>
-								<li>"Agent admitted failure to sign using the key.", run $ ssh-add.</li>
-							</ul>
-						</div>
-					</li>
-				</ul>
 			</div>
 		</div>
 	</body>

@@ -194,15 +194,36 @@
 			<div class="section ui-widget-content" id="Download" name="Download">
 				
 				<h2>KestrelHPC's Personal Package Archives</h2>
-				<ul>
+				<h3>Ubuntu 10.04, 10.10 and 11.04</h3>
+				<ol>
 					<li>Add repository
 						<pre>sudo add-apt-repository ppa:kestrel/kestrelhpc</pre>
 					</li>
-					<li>Install KestrelHPC
-						<pre>sudo apt-get install kestrelhpc kestrelhpc-openmpi</pre>
+					<li>Update packages
+						<pre>sudo apt-get update</pre>
 					</li>
-					<li><div class="note">Note: KestrelHPC 2 is not currently at production level (beta quality). Please upgrade frecuently to get the latest fixes.</div></li>
-				</ul>
+					<li>Install KestrelHPC
+						<pre>sudo apt-get install --no-install-recommends kestrelhpc kestrelhpc-ganglia kestrelhpc-openmpi</pre>
+						<div class="note">Please upgrade frecuently to get the latest fixes.</div>
+					</li>
+				</ol>
+				<h3>Debian Squeeze</h3>
+				<ol>
+					<li>Add repository
+						<pre>echo "deb http://ppa.launchpad.net/kestrel/kestrelhpc/ubuntu maverick main" \ 
+> /etc/apt/sources.list.d/kestrelhpc.list</pre>
+					</li>
+					<li>Add PPA's Signing key
+						<pre>apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8475B36D</pre>
+					</li>
+					<li>Update packages
+						<pre>sudo apt-get update</pre>
+					</li>
+					<li>Install KestrelHPC
+						<pre>sudo apt-get install --no-install-recommends kestrelhpc kestrelhpc-ganglia kestrelhpc-openmpi</pre>
+						<div class="note">Please upgrade frecuently to get the latest fixes.</div>
+					</li>
+				</ol>
 				<h2>Source code</h2>
 				<p>Browse or download the latest code from the subversion :
 					<a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc">SVN Repository</a>
