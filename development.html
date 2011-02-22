@@ -10,7 +10,6 @@
 				background:#f2e9db;
 				font: 13px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
 				line-height: 18px;
-				height:100%;
 			}
 			.title {
 				margin:0px;
@@ -27,7 +26,6 @@
 				background: #f2e9db url(css/background.png) repeat-y center center;
 				padding:0px 19px;
 				margin:0px auto;
-				min-height:100%;
 			}
 
 			/* Links 
@@ -127,6 +125,16 @@
 				margin-bottom: 1em;
 				padding: 0.5em;
 			}
+			.note {
+				background: #FCC;
+				background: #FFD9D9;
+				border: 1px solid #597eb6;
+				border: 1px solid #599ee6;
+				color: #830;
+				margin-bottom: 1em;
+				padding: 0.5em;
+				margin:1em 0em;
+			}
 			#screenshots li {
 				display:block;
 			}
@@ -153,6 +161,19 @@
 				$( "#Features ul" ).accordion({header:'> li > :first-child'});
 			});
 		</script>
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-20486350-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
 	</head>
 	<body>
 		<h1 class="title"><a href="index.html">KestrelHPC</a></h1>
@@ -177,23 +198,54 @@
 				<ul>
 					<li><a href="https://lists.sourceforge.net/lists/listinfo/kestrelhpc-developers">Development</a></li>
 				</ul>
-				<h4>Subversion</h4>
+				
+				<h3>Subversion</h3>
 				<ul>
-					<li><a hred="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/">Browse code online</a>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/">Browse code online</a>
 					<li>Download code :
 						<pre>svn co https://kestrelhpc.svn.sourceforge.net/svnroot/kestrelhpc kestrelhpc</pre>
 					</li>
 				</ul>
-				<h4>Internals</h4>
+				
+				<h3>Internals</h3>
 				<ul>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/README?content-type=text/plain">README</a> (needs to be updated)</li>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/TODO?content-type=text/plain">ToDo List</a></li>
-					<li>KestrelHPC uses a <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/rpc/kestrel_rpc.py?content-type=text/plain">rpc server</a> written in python for event handling. Each event is passed to <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/kestrel-daemon?content-type=text/plain">kestrel-daemon</a> through a FIFO.</li>
-					<li>KestrelHPC <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/kestrel-daemon?content-type=text/plain">daemon</a> is written in bash script, reads events and their parameters from the FIFO and calls register.d scripts using the function run_register_scripts located in <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/kestrel-lib?content-type=text/plain">kestrel-lib</a>.</li>
-					<li><a <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/kestrel-lib?content-type=text/plain">KestrelHPC's library</a> (kestrel-lib). Most of the functionality is implemented here.</a></li>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/node/register.d/">Register scripts</a>. There scripts are executed when an event ocurrs (register/unregister/connect/disconnect).
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/node/install.d/README?content-type=text/plain">Node install scripts</a>. These scripts are executed when an image is created or deleted. If the script contains the word "chroot" then it is executed on the image under a chroot jail.</li>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/Src/share/node/configure.d/README?content-type=text/plain">Node configure scripts</a>. These scripts are executed when the user reconfigures the system. If the script contains the word "chroot" then it is executed on the image under a chroot jail.</li></li>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/README?content-type=text/plain">README</a> (needs to be updated)</li>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/TODO?content-type=text/plain">ToDo List</a></li>
+				</ul>
+				
+				<h4>RPC and Daemon</h4>
+				<ul>
+					<li>KestrelHPC uses a <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/rpc/kestrel_rpc.py?content-type=text/plain">rpc server</a> written in python for event handling. Each event is passed to <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/kestrel-daemon?content-type=text/plain">kestrel-daemon</a> through a FIFO.</li>
+					<li>KestrelHPC <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/kestrel-daemon?content-type=text/plain">daemon</a> is written in bash script, reads events and their parameters from the FIFO and calls <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/event.d/">event.d scripts</a> using the function run_register_scripts located in <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/kestrel-lib?content-type=text/plain">kestrel-lib</a>.</li>
+					<li><a <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/kestrel-lib?content-type=text/plain">KestrelHPC's library</a> (kestrel-lib). Most of the functionality is implemented here.</a></li>
+				</ul>
+				
+				<h4>Configuration variables</h4>
+				<p>Variables get their <i>default value</i> form these configuration files located at : </p>
+				<ul>
+					<li> Default config file : <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/default.conf?revision=189&view=markup">/usr/share/kestrel/default.conf</a></b></li>
+					<li> Default config file of each module : <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/default.d/">/usr/share/kestrel/default.d/*</a> </li>
+				</ul>
+				<p class="note">/usr/share/kestrel/* should not be modified by a user because they will be overriden when a package is updated. They should modify /etc/kestrel/kestrel.conf instead.</p>
+				
+				<h4>Event scripts</h4>
+				<ul>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/register.d/">Event scripts</a>. There scripts are executed when an event ocurrs (register/unregister/connect/disconnect).
+				</ul>
+				
+				<h4>Node scripts</h4>
+				<ul>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/install.d/">Node install scripts</a>. These scripts are executed when an image is created or deleted.</li>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/packages.d/">Node packages</a>. Packages to install on the images.</li>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/post-install.d/">Node post-install scripts</a>. These scripts are executed when an image is created or deleted, after installing the packages.</li>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/configure.d/">Node configure scripts</a>. These scripts are executed when the user reconfigures the system.
+					</li>
+				</ul>
+				<div class="note">If the script contains the word "chroot" then it is executed on the image under a chroot jail.</div>
+				
+				<h4>Frontend scripts</h4>
+				<ul>
+					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/frontend/configure.d/">Frontend configure scripts</a>. These scripts are executed when the user reconfigures the system.</li></li>
 				</ul>
 			</div>
 		</div>
