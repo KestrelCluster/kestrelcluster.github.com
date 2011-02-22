@@ -127,10 +127,13 @@
 			}
 			.note {
 				background: #FCC;
+				background: #FFD9D9;
 				border: 1px solid #597eb6;
+				border: 1px solid #599ee6;
 				color: #830;
 				margin-bottom: 1em;
 				padding: 0.5em;
+				margin:1em 0em;
 			}
 			#screenshots li {
 				display:block;
@@ -182,6 +185,7 @@
 				<li><a href="documentation.html">Documentation</a></li>
 				<li><a href="download.html">Download</a></li>
 				<li><a href="screenshots.html">Screenshots</a></li>
+				<li><a href="modules.html">Modules</a></li>
 				<li><a href="development.html">Development</a></li>
 				<li><a href="contact.html">Contact</a></li>
 			</ul>
@@ -223,31 +227,29 @@
 				
 				<h3>Configuration</h3>
 				<ul>
+				    <li>Edit the KestrelHPC config file
+						<pre>$ sudo editor /etc/kestrel/kestrel.conf</pre>
+					</li>
 					<li>Set the frontend's static IP
-						<p> Configure KestrelHPC</p>
-						<pre>$ sudo nano /etc/kestrel/kestrel.conf
-# Frontend's ip
+<pre># Frontend's ip
 FRONTEND_IP=192.168.30.1
 FRONTEND_NETMASK=255.255.255.0
 
 # IP range of the DHCP service
 DHCP_STARTING_IP=192.168.30.2
 DHCP_ENDING_IP=192.168.30.255</pre>
-									
-						<div class="note">Note: The frontend's IP should be static.
+						<p class="note">Note: The frontend's IP should be <b>static</b>.</p>
 						<ul>
-							<li>Set up with <a href="https://help.ubuntu.com/10.10/internet/C/connecting-wired.html">network manager</a> (Graphical User Interface)</li>
+							<li>Set up with the <a href="https://help.ubuntu.com/10.10/internet/C/connecting-wired.html">Network Manager</a> (Graphical User Interface) on a Desktop computer</li>
 							<li>Set up with <a href="https://help.ubuntu.com/10.10/serverguide/C/network-configuration.html">/etc/network/interfaces</a></li>
-						</ul></div>
-						
-						<div>Look at the system's configuration files for knowing which options are available :
-						<ul>
-							<li> basic default config file : <b>/usr/share/kestrel/default.conf</b></li>
-							<li> default config file of each module : <b>/usr/share/kestrel/default.d/*</b> </li>
-						</ul></div>
+						</ul>
 					</li>
 					
-					<li> Apply the new configuration
+					<li>
+						<p>Available options : See <a href="configuration.html"><b>Configuration page</b></a></p>
+					</li>
+					
+					<li><p>Apply the new configuration</p>
 						<pre>sudo kestrel-reconfigure --all</pre>
 					</li>
 				</ul>
