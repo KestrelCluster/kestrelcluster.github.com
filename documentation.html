@@ -5,153 +5,8 @@
 		<title>KestrelHPC</title>
 		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
 		<link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" />
-		<style type="text/css">
-			html {
-				background:#f2e9db;
-				font: 13px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
-				line-height: 18px;
-			}
-			.title {
-				margin:0px;
-			}
-			.title a {
-				border:none;
-				display:block;
-				width: 900px; height: 88px;
-				background: url("css/header.png");
-				text-indent: -9999px;
-			}
-			body {
-				width:900px;
-				background: #f2e9db url(css/background.png) repeat-y center center;
-				padding:0px 19px;
-				margin:0px auto;
-			}
-
-			/* Links 
-			**********/
-			a, a:visited, .ui-widget-content a, .ui-widget-content a:visited {
-				color:#1C94C4;
-				text-decoration:none;
-			}
-			a {
-				border-bottom:1px solid #0C4474;
-			}
-			a:hover, .ui-widget-content a:hover {
-				color:#B60;
-				border-color:#1C94C4;
-			}
-			/* accordion's links should not have a border */
-			h3 > a, h4 > a {
-				border-bottom:0px;
-			}
-
-			/* tabs
-			*********/
-			#tabs {
-				height:26px;
-				-moz-border-radius:4px;
-				-webkit-border-radius:4px;
-				border-radius:4px;
-			}
-			#tabs ul {
-				margin:2px;
-				padding:0px;
-			}
-			#tabs a {
-				background: #F6F6F6 url(css/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png) repeat-x 50% 50%;
-				border: 1px solid #becce2;
-				float: left;
-				padding: 0.5em 1em;
-				text-decoration: none;
-				color: #0C4474;
-				-moz-border-radius:4px;
-				-webkit-border-radius:4px;
-				border-radius:4px;
-				font: 14px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
-			}
-			#tabs a:hover {
-				background: #FEE;
-				color: #B60;
-				border-color:#597eb6;
-			}
-			#tabs li {
-				margin-bottom: 0px;
-				padding-bottom: 1px;
-				border-bottom: 0px !important;
-				float: left;
-				list-style: none;
-				margin: 0px 0.2em 1px 0px;
-				padding: 0px;
-				position: relative;
-				top: 1px;
-				white-space: nowrap;
-				background: url(css/ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 50% 50%;
-				border: 1px solid #6ba6ff;
-				-moz-border-radius:4px;
-				-webkit-border-radius:4px;
-				border-radius:4px;
-			}
-
-			/* ui-lightness customizations 
-			*******************************/
-			.section {
-				padding:10px 18px;
-			}
-			#sections > div:first-child {
-				padding-top:13px;
-			}
-			.ui-widget-header, .ui-state-active, .ui-widget-content .ui-state-active {
-				border-color:#597eb6;
-			}
-			.ui-widget-content .ui-state-active a{
-				color:#0C4474;
-			}
-			.ui-widget-content .ui-state-hover {
-				border-color:#597eb6;
-			}
-			.ui-widget, .ui-widget h3 {
-				font-size:12px;
-			}
-			
-			ul > li {
-				list-style-image: url(css/bullet.gif);
-				list-style-type: circle;
-			}
-			pre {
-				background: #FEE;
-				border: 1px solid #597eb6;
-				color: #B60;
-				margin-bottom: 1em;
-				padding: 0.5em;
-			}
-			.note {
-				background: #FCC;
-				background: #FFD9D9;
-				border: 1px solid #597eb6;
-				border: 1px solid #599ee6;
-				color: #830;
-				margin-bottom: 1em;
-				padding: 0.5em;
-				margin:1em 0em;
-			}
-			#screenshots li {
-				display:block;
-			}
-			#screenshots a {
-				display:block;
-				float:left;
-				margin:10px;
-				border:0px;
-				box-shadow:black 1px 1px 5px;
-				-webkit-box-shadow:black 1px 1px 3px;
-				-moz-box-shadow:black 1px 1px 3px;
-			}
-			#screenshots img {
-				display: block;
-				border:0px;
-			}
-		</style>
+		<link rel="stylesheet" href="css/kestrelhpc.css" type="text/css" media="screen" />
+		
 		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
 		<script type="text/javascript" src="js/slimbox2.js"></script>
@@ -194,14 +49,14 @@
 		<div id="sections">
 			
 			<div class="section ui-widget-content" id="Documentation">
-				<h2 id="Tutorial">Documentation - Tutorial</h2>
+				<h2 id="Tutorial">Documentation - Installation</h2>
 				
 				<div id="tabs" class="ui-widget-header" style="margin-bottom:40px">
 					<ul>
 						<li><a href="documentation.html#Installation">Installation</a></li>
+						<li><a href="configuration.html">Configuration</a></li>
 						<li><a href="tutorial.html">Tutorial</a></li>
 						<li><a href="man/index.html">Man Pages</a></li>
-						<li><a href="configuration.html">Configuration</a></li>
 					</ul>
 				</div>
 				
@@ -222,16 +77,14 @@
 				
 				<h3>Installation</h3>
 				<ul>
-					<li><a href="download.html">download and install</a></li>
+					<li><a href="download.html">Download and install</a></li>
 				</ul>
 				
 				<h3>Configuration</h3>
 				<ul>
 				    <li>Edit the KestrelHPC config file
 						<pre>$ sudo editor /etc/kestrel/kestrel.conf</pre>
-					</li>
-					<li>Set the frontend's static IP
-<pre># Frontend's ip
+						<pre class="output"># Frontend's ip
 FRONTEND_IP=192.168.30.1
 FRONTEND_NETMASK=255.255.255.0
 
@@ -250,15 +103,15 @@ DHCP_ENDING_IP=192.168.30.255</pre>
 					</li>
 					
 					<li><p>Apply the new configuration</p>
-						<pre>sudo kestrel-reconfigure --all</pre>
+						<pre>$ sudo kestrel-reconfigure --all</pre>
 					</li>
 				</ul>
 				
 				<h3>Create a node image</h3>
 				<ul>
 					<li>Create an image for the nodes :
-						<pre>$ sudo kestrel-images --new image1
-
+						<pre>$ sudo kestrel-images --new image1</pre>
+						<pre class="output">
 Detecting host :
 [...]
 Creating image
@@ -276,8 +129,8 @@ Executing configure scripts
 				<h3>Register users</h3>
 				<ul>
 					<li>Add a user to the cluster :
-						<pre>$ sudo kestrel-users --add-to-cluster jonan
-Adding user `jonan' to group `kestrel' ...
+						<pre>$ sudo kestrel-users --add-to-cluster jonan</pre>
+						<pre class="output">Adding user `jonan' to group `kestrel' ...
 Adding user jonan to group kestrel
 Done.</pre>
 					</li>
@@ -291,9 +144,8 @@ Done.</pre>
 							
 							<li>Press control+c to finish</li>
 						</ol>
-						<pre>$ sudo kestrel-control --register group1
-
-Turn now on the nodes to add them to the group "image1"
+						<pre>$ sudo kestrel-control --register group1</pre>
+						<pre class="output">Turn now on the nodes to add them to the group "image1"
 
 Press crtl+c when you are done
 
@@ -310,6 +162,11 @@ The node "kestrel-group1-2" was already registered
 ^C</pre>
 						<div class="note">Configure the BIOS of each node to boot from PXE.</div>
 					</li>
+				</ul>
+				
+				<p>At this point you should now have a functional Beowulf cluster. You can test it with </p>
+				
+				<h3>Jump into the <a href="tutorial.html">Tutorial</a> to learn the basics</h3>
 			</div>
 		</div>
 	</body>
