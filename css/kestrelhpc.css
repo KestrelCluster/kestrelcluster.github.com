@@ -53,38 +53,35 @@ h3 > a, h4 > a {
 	padding:0px;
 }
 #tabs a {
-	background: #F6F6F6 url(ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png) repeat-x 50% 50%;
-	border: 1px solid #becce2;
+	background: #F6F6F6;
+	border: 1px solid #e6e6e6;
 	float: left;
-	padding: 0.5em 1em;
+	padding: 5px 12px;
 	text-decoration: none;
 	color: #0C4474;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
 	font: 14px 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+	position:relative;
+	-webkit-box-shadow: 2px 0px 7px -4px black, inset -2px -2px 7px -7px #BECCE2;
+	box-shadow:         2px 0px 7px -4px black, inset -2px -2px 7px -7px #BECCE2;
+	-moz-box-shadow:    2px 0px 7px -4px black, inset -2px -2px 7px -7px #BECCE2;
+
+	-moz-transition: all .1s;
+	-webkit-transition: all .1s;
 }
 #tabs a:hover {
+	margin-top:2px;
 	background: #FEE;
 	color: #B60;
 	border-color:#597eb6;
 }
 #tabs li {
-	margin-bottom: 0px;
-	padding-bottom: 1px;
-	border-bottom: 0px !important;
+        margin: 1px 3px 1px 0px;
 	float: left;
 	list-style: none;
-	margin: 0px 0.2em 1px 0px;
-	padding: 0px;
-	position: relative;
-	top: 1px;
 	white-space: nowrap;
-	background: url(ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 50% 50%;
-	border: 1px solid #6ba6ff;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:4px;
 }
 
 /* ui-lightness customizations 
@@ -147,3 +144,4 @@ pre.output {
 	display: block;
 	border:0px;
 }
+
