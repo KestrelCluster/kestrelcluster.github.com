@@ -1,92 +1,107 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>KestrelHPC</title>
-		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
-		<link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" />
-		<link rel="stylesheet" href="css/kestrelhpc.css" type="text/css" media="screen" />
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>KestrelHPC</title>
+        <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/kestrelhpc.css" type="text/css" media="screen" />
 
-		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
-		<script type="text/javascript" src="js/slimbox2.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				$( "#accordion" ).accordion({ autoHeight: false, icons: false});
-				$( "#Features ul" ).accordion({header:'> li > :first-child'});
-			});
-		</script>
-		<script type="text/javascript">
+        <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+        <script type="text/javascript" src="js/slimbox2.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $( "#accordion" ).accordion({ autoHeight: false, icons: false});
+            });
+            $(function() {
+                $( "#content-tabs" ).tabs();
+            });
+        </script><!--
+        <script type="text/javascript">
 
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-20486350-1']);
-		  _gaq.push(['_trackPageview']);
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-20486350-1']);
+          _gaq.push(['_trackPageview']);
 
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
 
-		</script>
-	</head>
-	<body>
-		<h1 class="title"><a href="index.html">KestrelHPC</a></h1>
+        </script>-->
+    </head>
+    <body><div class="wrapper">
+        <h1 class="title"><a href="index.html">KestrelHPC</a></h1>
+        
+        <div id="tabs" class="ui-widget-header">
+            <ul>
+                <li><a href="index.html#About">About</a></li>
+                <li><a href="index.html#News">News</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="download.html">Download</a></li>
+                <li><a href="screenshots.html">Screenshots</a></li>
+                <li><a href="modules.html">Modules</a></li>
+                <li><a href="development.html">Development</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
 
-		<div id="tabs" class="ui-widget-header">
-			<ul>
-				<li><a href="index.html#About">About</a></li>
-				<li><a href="index.html#News">News</a></li>
-				<li><a href="documentation.html">Documentation</a></li>
-				<li><a href="download.html">Download</a></li>
-				<li><a href="screenshots.html">Screenshots</a></li>
-				<li><a href="modules.html">Modules</a></li>
-				<li><a href="development.html">Development</a></li>
-				<li><a href="contact.html">Contact</a></li>
-			</ul>
-		</div>
+        <div class="section ui-widget-content" id="sections">
 
-		<div id="sections">
-			
-			<div class="section ui-widget-content" id="Download" name="Download">
-				
-				<h2>KestrelHPC's Personal Package Archives</h2>
-				<h3>Ubuntu 10.04, 10.10 and 11.04</h3>
-				<ol>
-					<li>Add repository
-						<pre>sudo add-apt-repository ppa:kestrel/kestrelhpc</pre>
-					</li>
-					<li>Update packages
-						<pre>sudo apt-get update</pre>
-					</li>
-					<li>Install KestrelHPC
-						<pre>sudo apt-get install --no-install-recommends kestrelhpc kestrelhpc-ganglia kestrelhpc-openmpi</pre>
-						<div class="note">Please upgrade frecuently to get the latest fixes.</div>
-					</li>
-				</ol>
-				<h3>Debian Squeeze</h3>
-				<ol>
-					<li>Add repository
-						<pre>echo "deb http://ppa.launchpad.net/kestrel/kestrelhpc/ubuntu maverick main" \ 
-> /etc/apt/sources.list.d/kestrelhpc.list</pre>
-					</li>
-					<li>Add PPA's Signing key
-						<pre>apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8475B36D</pre>
-					</li>
-					<li>Update packages
-						<pre>sudo apt-get update</pre>
-					</li>
-					<li>Install KestrelHPC
-						<pre>sudo apt-get install --no-install-recommends kestrelhpc kestrelhpc-ganglia kestrelhpc-openmpi</pre>
-						<div class="note">Please upgrade frecuently to get the latest fixes.</div>
-					</li>
-				</ol>
-				<h2>Source code</h2>
-				<p>Browse or download the latest code from the subversion :
-					<a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc">SVN Repository</a>
-				</p>
-			</div>
-			
-		</div>
-	</body>
+            <div id="content-tabs" name="Download">
+                <ul>
+                    <li><a href="#Live">Live CD/USB</a></li>
+                    <li><a href="#Install">Installable Packages</a></li>
+                    <li><a href="#Code">Download code</a></li>
+                </ul>
+                <div id="Live">
+                    <h2>Live CD/USB</h2>
+                                        
+                    <h4>Download</h4>
+                    
+                    To be released soon.
+                    
+                    <h4>Customize live CD</h4>
+                    
+                    To be released soon.
+                </div>    
+                
+                <div id="Install">
+                    <h2>Installable Packages</h2>
+                    <h4>KestrelCluster 3.0 Alpha 1 for Debian Squeeze</h4>
+                    <ol>
+                        <li>Add repository
+                            <pre>$ sudo sh -c 'echo "deb http://ppa.launchpad.net/kestrel/kestrel-3.0/ubuntu oneiric main" \
+  > /etc/apt/sources.list.d/kestrelhpc.list'</pre>
+                        </li>
+                        <li>Add PPA's Signing key
+                            <pre>$ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8475B36D</pre>
+                        </li>
+                        <li>Update packages
+                            <pre>$ sudo apt-get update</pre>
+                        </li>
+                        <li>Install KestrelCluster
+                            <pre>$ sudo apt-get install --no-install-recommends \
+kestrelcluster kestrelcluster-openmpi kestrelcluster-ganglia kestrelcluster-openmpi kestrelcluster-plymouth</pre>
+                            <div class="note">Please upgrade frecuently to get the latest fixes.</div>
+                        </li>
+                    </ol>
+
+                    <h4>Ubuntu</h4>
+                    <div>Version 3.0 is not currently available for ubuntu. We are having some troubles with Upstart (Ubuntu's init daemon) and unionfs.</div>
+                </div>
+                
+                <div id="Code">
+                    <h2>Source code</h2>
+                    <dl>
+                        <dt>Browse code online:</dt>
+                        <dd class="pre"><a href="https://github.com/KestrelCluster/KestrelCluster">https://github.com/KestrelCluster/KestrelCluster</a></dd>
+                        <dt>Download code</dt>
+                        <dd class="pre">git clone git@github.com:KestrelCluster/KestrelCluster.git</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div></body>
 </html>
