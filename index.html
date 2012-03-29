@@ -13,9 +13,10 @@
 		<script type="text/javascript">
 			$(function(){
 				$( "#accordion" ).accordion({ autoHeight: false, icons: false});
-				$( "#Features ul" ).accordion({header:'> li > :first-child'});
+				//$( "#Features ul" ).accordion({header:'> li > :first-child'});
 			});
 		</script>
+		<!--
 		<script type="text/javascript">
 
 		  var _gaq = _gaq || [];
@@ -29,6 +30,7 @@
 		  })();
 
 		</script>
+		-->
 	</head>
 	<body>
 		<h1 class="title"><a href="index.html">KestrelHPC</a></h1>
@@ -49,103 +51,137 @@
 		<div id="sections">
 			<div class="section ui-widget-content" id="Introduction">
 				<img style="width: 347px; height: 250px; float: right;" alt="KestrelHPC Logo" src="./imagenes/logo_kestral-v1.1.png" /> 
-				<h2>What is KestrelHPC?</h2>
-				<p>KestrelHPC is a set of tools which help setting up a diskless Beowulf cluster.</p>
-				<p>This project was born in answer to the need for having a cluster without having to pay a considerable amount of money. The
-				first version of KestrelHPC was strongly based on <a href="http://www.pelicanhpc.org">PelicanHPC</a> and the owner of the project, Michael Creel, 
-				was a really important asset to the project. In the second version, KestrelHPC's code was rewritten from scratch and now, KestrelHPC has become 
-				an installable deb package.</p>
+				<h2>What is KestrelCluster?</h2>
+				<p>KestrelCluster is a set of tools which help setting up a diskless Cluster. In general configuring a cluster is something which requires lot of work since it requires configuring many services:
+				<ul>
+				    <li>Configure the NFS to export the system for the nodes</li>
+				    <li>Configure the DHCP server and the TFTP server for the netboot using PXE</li>
+				    <li>Configure the PXE bootloader</li>
+				    <li>Installing utilities on the images for setting the wake on lan support or counting the number of cores...</li>
+				</ul>
+				</p>
+				<p>Clusters are something interesting, they are simply a group of computers working together. We developed KestrelCluster originally to ease the creation of High Performane Clusters (HPC) for our university. We wanted to use unused computers when labs were closed or at night for researchers.</p>
+				
+				<p>But clusters can be used for much more things, lets say for example for building a giant videowall, or maybe we want to construct a cheap render farm at night for an small 3D animation company, or to launch a demo of somekind of software among many machines without the need to install everything on each machine. These scenarios have in common that they require sharing a system from one computer to several nodes, and of course this would be better if we don't need to install anything on these nodes.</p>
+				
+				<p>So we created an extensible template based system which configures a common Debian system. With KestrelCluster 3.0 we provide several modules for HPC computing, and a videowall using Xdmx and Chromium.</p>
+				
 				<p style="clear:both;"></p>
 			</div>
 			
-			<div class="section ui-widget-content" id="Features">
+			<!--
+            <div>
+                <h2></h2>
+			    <p>Configuring a cluster on a standard Debian installation is not something easy as we can see taking a look at any guide on the internet:<p>
+			    <ul>
+			        <li><a href="http://debianclusters.org/index.php/Main_Page">Debian Clusters for Education and Research: The Missing Manual</a></li>
+			        <li><a href="http://www.petur.eu/blog/?p=59">How-to: John the Ripper on a Ubuntu 10.04 MPI Cluster</a></li>
+			    </ul>
+			
+			    <p>It takes a lot of time and requires a good knowledge of Linux commands. Many users using a guide will find that it may not cover in detail every step required or any issue that can arise. Guides and wikis also often get outdated or unmantained.</p>
+			    
+			    <p>Our idea is to automate the whole process by creating a set of templates and configuration editing scripts, so we can easily edit every single file required to get the cluster working. The benefits of a template based system are:</p>
+			    <ul>
+			        <li>It can be easily <b>reviewed</b>, <b>mantained</b> and <b>extended</b>.</li>
+			        <li>It can be seen as a guide if one takes a look at each template.</li>
+			        <li><b>Parametrizable</b>. Change a variable and regenerate the whole configuration.</li>
+			        <li>Easily <b>extensible</b> and <b>customizable</b> creating new templates/scripts.</li>
+			        <li><b>Revert any change easily</b>. Each modified file is saved and can be easily restored to the original.</li>
+			    </ul>
+			
+			    <h3>What is required to get a working diskless Cluster?</h3>
+                <ul>
+                    <li><b>Share the node operating system.</b>
+                        <p>Shared with NFS, so we must create entries on the nfs's export file (/etc/exports)</p></li>
+                    <li><b>Configure a dhcp server for the PXE boot</b>
+                        <p>Configure the dnsmasq dhcp server</p></li>
+                        
+                    <li><b>Configure the PXE bootloader</b>
+                        <p>Create the pxelinux configuration and configure dnsmasq<p></li>
+                        
+                    <li><b>Create ssh keys for login into the nodes without password</b></li>
+                    
+                    <li><b>Save the node's mac and use an script for waking up them</b></li>
+                    
+                    <li>...</li>
+                </ul>
+
+                <h3>What is desirable to get in a Cluster?</h3>
+                
+                <ul>
+                    <li>Allow using multiple images for nodes.</li>
+                    <li>Be secure: Filter nfs access by mac.</li>
+                    <li>Allow nodes to be used not only as a cluster nodes</li>
+                    <li>Detect when a node is down</li>
+                    <li>Create groups of nodes</li>
+                    <li>Show an splash on the nodes showing that the computer is being used</li>
+                    <li>Beep (with a melody) when each node starts up</li>
+                    <li>Detect the number of cores and cpus of each node</li>
+               </ul>
+
+                <p>Probably tons of this things can be avoided to get a minimal
+                functional hpc cluster, but we want to get a good tool for getting
+                good clusters, which is easy to configure and to extend.</p>
+            </div>
+            -->
+            
+			<div class="section ui-widget-content news" id="Features">
 				<h2>Features</h2>
-				<ul>
-					<li>
-						<h4><a>Debian/Ubuntu package.</a></h4>
-						<div>
-							KestrelHPC is installed as a Debian package on your current system.
-						</div>
-					</li>
-					<li>
-						<h4><a>Live nodes.</a></h4>
-						<div>
-							<ul>
-								<li></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<h4><a>Configures and installs all the required services.</a></h4>
-						<div>
-							<ul>
-								<li>dnsmasq: dhcp and tftpboot</li>
-								<li>pxelinux: Manages the LAN boot of the slave nodes</li>
-								<li>nfs4: Manages the export and fstab entries.</li>
-								<li>ssh: Creates keys for each user to access the nodes.</li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<h4><a>Minimal systems are run on the nodes.</a></h4>
-						<div>
-							<ul>
-								<li>Minimal Debian based systems are run on the nodes to reduce the memory usage and the traffic on the local net.</li>
-								<li>Required software is installed automatically on each image.</li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<h4><a>Manage simply the nodes of the cluster.</a></h4>
-						<div>
-							<p>Run</p>
-							<pre> kestrel-control --register "Genetics-image-1"</pre>
-							<p>And start up each node you want to add to the cluster using PXE. KestrelHPC will save its mac and associate 
-							it to an image.</p>
-						</div>
-					</li>
-					<li>
-						<h4><a>It helps starting up nodes using WOL.</a></h4>
-						<div>
-							<p>You can start a node by its mac or hostname :</p>
-						
-							<pre>kestrel-control --wake &lt;hostname&gt;|&lt;mac&gt;</pre>
-						
-							<p>You can also start a group of nodes associated to an image :</p>
-						
-							<pre>kestrel-control --wake &lt;image name&gt;</pre>
-						</div>
-					</li>
-					<li>
-						<h4><a>It helps creating and managing multiple images</a></h4>
-						<div>
-							<p>You can create new images easily with kestrel-images.</p>
-							
-							<pre>kestrel-image --new "Genetics-image-1"</pre>
-							
-							<p>You can install or uninstall packages in each image with kestrel-apt.</p>
-							
-							<pre>kestrel-apt --image "image1" --install vim --uninstall nano</pre>
-						</div>
-					</li><!--
-					<li>
-						<h4><a>Secure</a></h4>
-						<div>
-							<p>We do our best to make KestrelHPC robust.</p>
-							<p>Read our Documentation to get a better view.</p>
-						</div>
-					</li>-->
-					<li>
-						<h4><a>Easily extendable and customizable.</a></h4>
-						<div>
-							<ul>
-								<li>Modules extends the cluster capabilities. Now we have 2 modules : Ganglia and OpenMPI, but new modules can be written easily.</li>
-								<li>Any functionality or script can be easily customized.</li>
-								<li>Each service is configured by its own set of scripts.</li>
-							</ul>
-						</div>
-					</li>
-				</ul>
+				
+				<h4><a>Installable on a standard Debian GNU/Linux.</a></h4>
+				<div>KestrelCluster is installed as a Debian package on your current system.</div>
+				
+				<h4><a>Live/diskless nodes</a></h4>
+				<div>Nothing is required to be installed on the nodes.</div>
+				
+				<h4><a>KestrelCluster can be enabled or disabled at any time restoring the original state.</a></h4>
+				<div>Every modified file is saved, and every change on the system can be easily reviewed.</div>
+				
+				<h4><a>Extensible and customizable</a></h4>
+				<div>
+				    <p>New templates can be added easily, and and every template can be easily overloaded.</p>
+				    <p>The behaviour of templates can be changed through variables.</p>
+				    <p>Modules can be disabled or enabled for each image. For example we may want only to install the videowall support on a single image.</p>
+				</div>
+				
+				<h4><a>Efficient</a></h4>
+				<div>
+					<p>Minimal Debian based systems are run on the nodes to reduce the memory usage and the traffic on the local net.</p>
+				    <p>Only required software is installed automatically on each image.</p>
+				</div>
+				
+				<h4><a>Manage simply the nodes of the cluster.</a></h4>
+				<div>
+					<p>Register new nodes</p>
+					<pre> kestrel-nodes --register "group1"</pre>
+					<p>And start up each node you want to add to the cluster using PXE. KestrelCluster will add the node to the group and save its macs to send a Wake-On-LAN "Magic Packet" to start the machine.</p>
+					
+					<p>Start a group of nodes</p>
+					<pre>kestrel-nodes --wake-group group1</pre>
+				</div>
+				
+				<h4><a>Create multiple images for differente researchers or uses</a></h4>
+				<div>
+					<p>Create a new image:</p>
+					<pre>kestrel-image --new "image-1"</pre>
+					
+					<p>Install or uninstall packages on the image:</p>
+					<pre>kestrel-apt --image "image1" --install vim --uninstall nano</pre>
+				</div>
+				
+				<h4><a>Robust and secure</a></h4>
+				<div>
+					<p>A cron job checks if each node is alive or freezed.</p>
+					<p>An extensible RPC daemon listens to the events of nodes.</p>
+					<p>Filter the access to the shared home exported through NFS by the MAC addresses.</p>
+				</div>
+				
+				<h4><a>Test the images under a LXC container</a></h4>
+				<div>
+					<p>Users can modify or install software on the images without the need of root capabilities.</p>
+					<p>Note: As KestrelCluster 3.0 this is a work in progress.</p>
+				</div>
+
 			</div>
 			<div class="section ui-widget-content" id="News" name="News">
 				<h2>Recent News</h2>
@@ -153,7 +189,30 @@
 
 				<div id="accordion">
 
-					<h3><a href="#">2010-02-15 : KestrelHPC 2.0 released</a></h3>
+					<h3><a href="#">2012-03-26 : New tool for creating Kestrel Live CDs</a></h3>
+					<div>
+						<p>Create customized Live CDs easily with kestrel-live</p>
+					</div>
+					
+					<h3><a href="#">2011-12-16 : Conference at SLUN11 at the University of the Basque Country</a></h3>
+					<div>
+						<p><a href="http://www.ehu.es/slun11">SLUN'11 :: Software libre en la Docencia</a></p>
+					</div>
+					
+					<h3><a href="#">2011-12-12 : KestrelCluster 3.0 Alpha 1</a></h3>
+					<div>
+						<p><a href="https://launchpad.net/~kestrel/+archive/kestrel-3.0">Created a new Personal Package Archive on launchpad for KestrelCluster 3.0</a></p>
+					</div>
+					
+					<h3><a href="#">2011-04-7 : Conference at the University of the Basque Country's Linux User Group</a></h3>
+					<div>
+					    <p><h4>Videos (in Spannish)</h4></p>
+						<p><iframe width="420" height="315" src="http://www.youtube.com/embed/QMlGNVnp0Y8" frameborder="0" allowfullscreen></iframe></p>
+                        <p><h4>Slides (in Spannish)</h4></p>
+						<p><a src="http://jonan.org/charlas/index.html#20110407_kestrelhpc">Slides</a></p>
+					</div>
+					
+					<h3><a href="#">2011-02-15 : KestrelHPC 2.0 released</a></h3>
 					<div>
 						<p>After months of work we finally publish a new stable version.</p>
 						<p>Best wishes,</p>
@@ -235,6 +294,8 @@
 				<p><a href="http://www.ehu.es/"><img style="border: 0px solid ; width: 250px; height: 116px;" alt="" src="./imagenes/blanco_pequeno.jpg"></a><a href="http://www.ceit.es/"><img style="border: 0px solid ; width: 181px; height: 109px;" alt="" src="./imagenes/logo.gif"></a></p>
 			</div>
 			
+			<div class="section ui-widget-content" id="Logo" name="Logo">
+			    <b>KestrelCluster's</b> logo is based on <a href="http://commons.wikimedia.org/wiki/File:Common-Kestrel-5.jpg">these</a> <a href="http://commons.wikimedia.org/wiki/File:Common-Kestrel.jpg">kestrel</a> <a href="http://commons.wikimedia.org/wiki/File:Common-Kestrel-4.jpg">images</a> by <a href="http://photo-natur.de/">Andreas Trepte</a>, available under a <a href="http://creativecommons.org/licenses/by-sa/2.5/">CC Attribution-ShareAlike 2.5 Generic</a> Licence.
 		</div>
 	</body>
 </html>
