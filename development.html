@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -8,15 +7,17 @@
 		<link rel="stylesheet" href="css/kestrelhpc.css" type="text/css" media="screen" />
 		
 		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
 		<script type="text/javascript" src="js/slimbox2.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				$( "#accordion" ).accordion({ autoHeight: false, icons: false});
-				$( "#Features ul" ).accordion({header:'> li > :first-child'});
-			});
-		</script>
-		<script type="text/javascript">
+        <script type="text/javascript">
+            $(function() {
+                $( "#content-tabs" ).tabs();
+                
+                $( ".selector" ).accordion({ active: false, collapsible: true });
+                
+            });
+        </script>		
+		<!--<script type="text/javascript">
 
 		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-20486350-1']);
@@ -28,9 +29,12 @@
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
 
-		</script>
+		</script>-->
+		<style>
+		  dt {list-style-type: circle; }
+		</style>
 	</head>
-	<body>
+	<body><div class="wrapper">
 		<h1 class="title"><a href="index.html">KestrelHPC</a></h1>
 
 		<div id="tabs" class="ui-widget-header">
@@ -44,65 +48,474 @@
 				<li><a href="contact.html">Contact</a></li>
 			</ul>
 		</div>
-
-		<div id="sections">
+		
+		<div class="section">
 			
-			<div class="section ui-widget-content" id="Development">
-				<h2>Development</h2>
-				<h4>Mailing list:</h4>
-				<ul>
-					<li><a href="https://lists.sourceforge.net/lists/listinfo/kestrelhpc-developers">Development</a></li>
-				</ul>
+			<div class="section ui-widget-content" id="content-tabs">
+			    <ul>
+                    <li><a href="#HowItWorks">How it works</a></li>
+                    <li><a href="#Design">Design</a></li>
+                    <li><a href="#FlagSystem">The Flag System</a></li>
+                    <li><a href="#Architecture">Architecture</a></li>
+                    <li><a href="#Stages">Stages</a></li>
+                    <li><a href="#Configuration">Configuration</a></li>
+                    <li><a href="#Developers">Developers</a></li>
+                </ul>
+                
+			    
+				<div id="HowItWorks">
+				    <h2>How it works</h2>
+				    
+				    <p>KestrelCluster comes with an extensible template system which generates and edits the system and the nodes files. The behaviour and values of the templates can be changed with the variables, and also the template system allows to overload any template by a user customized one simply creating a new one with the same name and label (since we can have different templates editing the same file, and flags are ignored in the overload process).</p>
+				    
+				    <p>The minimal node images are created using debootstrap which bootstraps a minimal debian system, this way we ensure that the OS run on the nodes is minimal. Afterwards the different configuration stages are run over this image.</p>
+				    
+				    <p>KestrelCluster adds dinamically entries on the /etc/hosts file, and at the same time we parse this file to know what nodes are connected. Registered nodes are stored on /var/lib/kestrel/registered_nodes with dnsmasq's host format, this way we can map MAC to hostnames and at the same time dnsmasq gives the correct hostnames to the nodes since the start. Both files can be changed with KESTREL_CON_NODES and KESTREL_REG_NODES variables.</p>
+				    
+				    <p>The node system and home directory are shared using NFS 4, although this can be extended in the future.</p>
+				    
+				    <h4>Boot secuence</h4>
+				    <ul class="screenshots">
+					    <li><a href="./imagenes/boot00.png" rel="lightbox-screenshot" title=""><img src="./imagenes/boot_thumb00.png"></a></li>
+					    <li><a href="./imagenes/boot01.png" rel="lightbox-screenshot" title=""><img src="./imagenes/boot_thumb01.png"></a></li>
+					    <li><a href="./imagenes/boot02.png" rel="lightbox-screenshot" title=""><img src="./imagenes/boot_thumb02.png"></a></li>
+					    <li><a href="./imagenes/boot03.png" rel="lightbox-screenshot" title=""><img src="./imagenes/boot_thumb03.png"></a></li>
+					    <li><a href="./imagenes/boot04.png" rel="lightbox-screenshot" title=""><img src="./imagenes/boot_thumb04.png"></a></li>
+					    <li><a href="./imagenes/boot05.png" rel="lightbox-screenshot" title=""><img src="./imagenes/boot_thumb05.png"></a></li>
+                    </ul>
+                    					
+				    <p style="clear:both;"></p>
+                </div>
+			    
+			    <div id="Design">
+                    <h2></h2>
+                    
+                    
+                    <h2>Design of KestrelHPC 2.0's templates</h2>
+                    
+                    <p>We tried to keep a simple design so that it would be easy to understand
+                    how everything works and know what
+                    
+                    The problem is that each time we add a new abstraction/stage, the more
+                    difficult it gets to understand how everything works and what they do.</p>
+
+                    <p>The first approach was creating a name convention for every script, a
+                    try to provide good a descriptive name. The first name convention was :</p>
+                    
+                    <pre>(host|image)_service_description[_chroot]</pre>
+                    
+                    <p>This way we indicated if it was modifying  system files or image files, 
+                    for example the /etc/exports file when configuring an image, and if it
+                    was required to be run on a chroot, por example for holding a package with
+                    dpkg.</p>
+                    
+                    <p>We also to splitted each script as they got too big under the lema: one script one functionality.</p>
+
+                    <p>In the end, this approach started to be too hard to mantain.
+                    
+                    <ul>
+                        <li>Script names endend being too large, but they were never enough to
+                            describe what they did</li>
+                        
+                        <li>We changed their names too much as they grew, sometimes to express 
+                            better what they did, but this ruined the template 
+                            override capability, which works as you define another file
+                            under /etc/kestrel/ with the <b>same name</b>.</li>
+                            
+                        <li>Even for me, sometimes I found that it was getting harder to
+                            know which script was modifying which file, so this did would be
+                            more dificult for anyone to study, review or extend the code.</li>
+                    </ul>
+
+                    <h2>Design of KestrelCluster 3.0's templates</h2>
+                    
+                    <p>Templates are named as they files the generate, scripts are named as the
+                       files they edit, and non editing scripts describe what they do:</p>
+                    <p>Examples:</p>
+
+<pre>1. node/install.d/sbin/dhclient-script(edit)
+2. node/install.d/etc/hostname
+3. node/install.d/install/etc/init.d/kestrel_disconnect(OS=Ubuntu)
+4. node/configure/etc/fstab("nfs4",edit)
+5. node/configure/restart.dnsmasq</pre>
+
+                    <p>As we can see 2 and 3 are templates. 1 and 4 are editing scripts. 5 is a
+                       non editing script.</p>
+                    
+                    <h4>Pros</h4>
+                    <ul>
+                        <li>It is much easier to understand what files we are editing.</li>
+                        <li>It is much easier to review. Could have anyone spotted before
+                that we were editing the apt configuration?</li>
+                        <li>2 modules can provide different templates for modifing the same file, while they use different labels.</li>
+                        <li>We can use distinct templates for Ubuntu and Debian.</li>
+                        <li>It is easier for the system to know what is being edited, and to make backup of those files</li>
+                    </ul>
+                    
+                    <h4>Contras</h4>
+                    <ul>
+                        <li>We lose the description of the reason of an action at name level,
+                            but we continue adding explanations at the own file.</li>
+                    </ul>
+                </div>
+                
+                <div id="FlagSystem">
+                    <h2>The Flag System</h2>
+
+                    <p>Flags are used to describe if a file is a template (by default) or an 
+                        editing script, if it needs to be run under a chroot, and grouping a set
+                        of templates under a common "label". These grouped templates can be enabled/disabled globally
+                        with the option &lt;label&gt;_disabled=yes, or for an image with &lt;label&gt;_&lt;image&gt;_disabled=yes.</p>
+                    <p>We also may want to create different templated for different OS releases, 
+                       and we may also want to disable templates with variables.</p>
+                       
+                    <ul>
+                        <li><h4>Templates</h4>
+                            <pre>system/configure.d/etc/dnsmasq.d/kestrel
+system/configure.d/etc/dnsmasq.d/kestrel(template)</pre>
+                            <p>By default a file is a template and when executed a sed script replaces the variables found by their value on the template.</p>
+                        </li>
+                        
+                        <li><h4>Editing scripts</h4>
+                            <pre>share/node/system-install.d/etc/exports(edit)</pre>
+                        </li>
+                        
+                        <li><h4>Non editing scripts</h4>
+                            <pre>share/system/configure.d/${TFTPBOOT_DIR}/kernel(run)</pre>
+                        </li>
+                                                        
+                        <li><h4>Prefixed non editing scripts</h4>
+                            <pre>run.&lt;name&gt;, restart.&lt;name&gt;, check.&lt;name&gt;</pre>
+                            Examples:
+                            <pre>share/system/configure.d/check.nfs
+share/system/configure.d/run.recreate_ssh_keys
+share/system/configure.d/restart.ufw
+share/system/configure.d/restart.dnsmasq</pre>
+                            <p>check scripts are executed on the stage before everything else. For example check.nfs parses the /etc/exports file to autodetect the nfs root directory and saves it on a variable.</p>
+                            <p>run and restart scripts are executed on the stage after everything else.</p>
+                            <h4>set_key_value function</h4>
+                            <p>This is an interesting function for editing files, since it makes easy to edit key-value based configuration files.</p>
+                            <pre>set_key_value &lt;key&gt; &lt;value&gt; &lt;file&gt; [&lt;separator_re&gt; [&lt;separator&gt; [&lt;space&gt;]]]</pre>
+                            <p>Examples:</p>
+<pre>set_key_value FRONTEND_IP "192.168.30.1" ${FILE}
+set_key_value PrintMotd no ${FILE} " "</pre>
+                            <p>FILE variable is an special variable the absolute path to the file being edited. Of course if the script is not executed under a chroot on an image it will point to the complete path where the image is found.</p>
+                        </li>
+                        
+                        <li><h4>User, group and mode setting</h4>
+                            <pre>system/install.d/${KESTREL_DATA_DIR}/rpc/fifo(edit,user=kestrel,group=root,mode=660)</pre>
+                            <p>Allow setting the user, group an mode to generated/edited files.</p>
+                        </li>
+                        
+                        <li><h4>Scripts run under a chroot jail</h4>
+                            <pre>node/pre-install.d/run.disable-dpkg-upstart(chroot)
+node/pre-install.d/run.disable-dpkg-upstart(nochroot)</pre>
+                        </li>
+                        
+                        <li><h4>Distribution and architecture flags</h4>
+                            Syntax:
+<pre>os=${OS_DISTRIBUTION}-${OS_CODENAME}
+os=${OS_DISTRIBUTION}-${OS_RELEASE}</pre>
+                            Examples:
+<pre>node/install.d/etc/init.d/kestrel_disconnect(os=Ubuntu-11.04)
+node/install.d/etc/init.d/kestrel_connect(os=Debian-squeeze)
+node/packages.d/openmpi(arch=amd64)
+</pre>
+                            <p>Templates and scripts are only applied to machines depending of the distribution or architecture.</p>
+                        </li>
+                        
+                        <li><h4>Variables on paths</h4>
+                            <pre>system/configure.d/${TFTPBOOT_DIR}/reboot("pxelinux")</pre>
+                            <p>Variables on paths will be expanded, allowing a user to change the tftpboot dir.</p>
+                        </li>
+                        
+                        <li><h4>Variable flag</h4>
+                            <pre>system/configure.d/etc/ufw/applications.d/nfs(${secure_nfs})</pre>
+                            <p>We can enable or disable this script setting the variable secure_nfs_&lt;image&gt;=yes or secure_nfs_=yes.</p>
+                        </li>
+                    </ul>
+                </div>
+			    
+			    <div id="Architecture">
+		            <h2>Kestrel Libraries</h2>
+		            <ul>
+					    <li><a <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/share/defaults-lib">Configuration library</a>. 
+					        <p>Merges the user and the system configuration.</p>
+					        <pre>load_config, variable_list, variable_user_list, variable_values, export_config, detect_iface</pre>
+					    </li>
+					    
+					    <li><a <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/share/kestrel-lib">Kestrel Library</a>. 
+					        <p>Common functions.</p>
+					        <ul>
+					            <li>Image functions
+                                    <pre>mount_image, check_image, list_image, lock_image, ...</pre></li>
+                                <li>User functions
+                                    <pre>check_user, list_users, sshkeygen, check_root</pre></li>
+                                <li>Util functions
+                                    <pre>run_script, kestrel_dialog, question_yN, msg, warn, die, msg_config, warn_config, eval_variables, 
+check_kestrel_daemon, check_enabled</pre></li>
+                            </ul>
+					    </li>
+					    
+					    <li><a <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/share/node-status-lib">Node Status Library</a>. 
+					        <p>This library parses /etc/hosts (kestrel daemon adds dynamically entries for each connected node) to get the list of connected nodes, and parses a dnsmasq's dhcp config file (When a node is registered we add an entry containing the mac a unique hostname) to get the list of registered nodes.</p>
+					        <pre>(connected|disconnected|registered)_(nodes|images|groups), list_groups, check_(hostname|group|mac)</pre>
+					    </li>
+					    
+					    <li><a <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/share/reconfigure-lib">Reconfiguration Library</a>. 
+					        <p>This library contains functions for configuring files.</p>
+					        <ul>
+					            <li>Template functions:
+                                    <pre>create_evaluation_script, find_templates, run_template, applicable_templates</pre>
+                                </li>
+                                <li>Backups functions:
+                                    <pre>search_backup_file, get_backup_version, list_(backup_versions|original_files|edited_files), 
+diff_files</pre>
+                                </li>
+                                <li>Stages functions:
+                                    <pre>list_stages, check_stages, run_configuration_stage</pre>
+                                </li>
+                                <li>Configure
+                                    <pre>node_configure, node_install, system_configure, system_install</pre>
+                                </li>
+					        </ul>
+					    </li>
+					    <li><a <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/share/kestrel-chroot-lib">Edit Library</a>.
+					        <p>This library contains functions for edit scripts</p>
+					        <pre>copy_file, link_file, template_file, test_backup, perms_and_backup, restore_file, evaluate_template,
+set_key_value</pre>
+					    </li>
+					    
+				    </ul>
+				    
+				    <h2>RPC and Daemon</h2>
+                    <ul>
+	                    <li>KestrelCluster uses a <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/rpc/kestrel_rpc.py">rpc server</a> written in python for the event handling. Each event is passed to <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/kestrel-daemon">kestrel-daemon</a> through a <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/share/system/install.d/$%7BKESTREL_DATA_DIR%7D/rpc/fifo(edit,user=kestrel,group=root,mode=660)"FIFO</a>.</li>
+	                    <li>KestrelCluster <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/kestrel-daemon">daemon</a> is written in bash script reads the events and parameters from the FIFO, checks if they are common variables and runs <a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/event.d">event.d scripts</a>.</li>
+                    </ul>
+				</div>
 				
-				<h3>Subversion</h3>
-				<ul>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/">Browse code online</a>
-					<li>Download code :
-						<pre>svn co https://kestrelhpc.svn.sourceforge.net/svnroot/kestrelhpc kestrelhpc</pre>
-					</li>
-				</ul>
+				<div id="Stages">
+				    
+				    <h2>Node stages</h2>
+				    
+                    <ol>
+                        <li><h4><a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/node/pre-install.d">Pre-Install</a></h4>
+                            <p>Templates to be run before the installing packages stage.</p>
+                            <p>For example, we hold dpkg and upstart packages, since we replace temporaly start-stop-daemon to avoid starting any service when we are installing a packages under a chroot jail.</p>
+                        </li>
+                        
+                        <li><h4><a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/node/packages.d">Package Installation</a></h4>
+                            <p>The output of scripts in this stage are installed with apt-get.</p>
+                        </li>
+                        
+                        <li><h4><a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/node/install.d">Install</a></h4>
+                            <p>Templates in this stage are run <b>only once</b> when KestrelCluster is installed/uninstalled on the system/image.</p>
+                        </li>
+                        
+                        <li><h4><a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/node/configure.d">Configure</a></h4>
+                            <p>Templates in this stage are run each time you change any configuration parameter.</p>
+                        </li>
+                        
+                        <li><h4><a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/node/system-install.d">System-install</a></h4>
+                            <p>Templates in this stage are run <b>only once</b> when KestrelCluster is installed/uninstalled on the system/image.</p>
+                        </li>
+                        
+                        <li><h4><a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/node/system-configure.d">System-Configure</a></h4>
+                            <p>Templates in this stage are run each time you change any configuration parameter.</p>
+                        </li>
+                    </ol>
+                    
+                    <!--
+                        <div class="selector">
+                            <h4>Example output</h4>
+                    <pre>
+kestrel-images --new image5
+    
+Creating the image from the image cache
+
+    Copying bin
+    Copying boot
+    Copying dev
+    Copying etc
+    Copying home
+    Copying lib
+    Copying media
+    Copying mnt
+    Copying opt
+    Copying proc
+    Copying root
+    Copying sbin
+    Copying selinux
+    Copying srv
+    Copying sys
+    Copying tmp
+    Copying usr
+    Copying var
+    pre-install
+        template: /etc/apt/apt.conf.d/99kestrel
+        template: /etc/dpkg/dpkg.cfg.d/kestrel
+        script:   run.disable-dpkg-upstart
+    packages
+        package:  /usr/share/kestrel/node/packages.d/basic_packages
+        package:  /usr/share/kestrel/node/packages.d/ganglia("ganglia")
+        package:  /usr/share/kestrel/node/packages.d/openmpi("openmpi")
+        package:  /usr/share/kestrel/node/packages.d/plymouth
+        package:  /usr/share/kestrel/node/packages.d/plymouth-themes(os=Debian)
+    install
+        template: /etc/cron.d/kestrel_reconnect
+        edit:     /etc/default/nfs-common
+        template: /etc/dhcp/dhclient-exit-hooks.d/kestrel_dhcp
+        template: /etc/hostname
+        template: /etc/hosts
+        template: /etc/init.d/beep_on_startup
+        template: /etc/init.d/kestrel_connect
+        template: /etc/init.d/kestrel_disconnect
+        template: /etc/init.d/kestrel_network
+        template: /etc/kestrel/image_name
+        template: /etc/network/interfaces
+        edit:     /etc/pam.d/sshd
+        edit:     /etc/ssh/sshd_config
+        edit:     /etc/ssh/ssh_known_hosts
+        edit:     /etc/sudoers
+        template: /etc/sudoers.d/kestrel
+        edit:     /etc/udev/rules.d/70-persistent-net.rules
+        edit:     /sbin/dhclient-script
+        template: /sbin/kestrel_beep
+        template: /sbin/num_of_cpus
+        template: /sbin/set_hostname
+        template: /sbin/xorg-use-nvidia
+        script:   run.add-users
+    system-install
+        edit:     /etc/exports
+        edit:     /etc/fstab
+        edit:     /var/lib/kestrel/tftpboot/image-list
+        template: /var/lib/lxc/image5/config
+        template: /var/lib/lxc/image5/fstab
+        script:   restart.nfs
+    configure
+        script:   check.plymouth
+        edit:     /etc/fstab
+        template: /etc/ganglia/gmond.conf
+        edit:     /etc/kestrel/beep_melody
+        edit:     /etc/passwd
+        edit:     /etc/ssh/sshd_config
+        template: /sbin/kestrel_connect
+        template: /sbin/kestrel_disconnect
+    system-configure
+        edit:     /etc/exports
+        edit:     /etc/fstab
+        template: /var/lib/kestrel/tftpboot/image5
+        script:   restart.nfs</pre>
+                        </div>
+-->
+
+                    <h2>System stages</h2>
+				    
+                    <ol>
+                        <li><h4><a>Pre-Install</a></h4>
+                            <p>Unused by now.</p>
+                        </li>
+                        
+                        <li><h4><a>Package Installation</a></h4>
+                            <p>The output of scripts in this stage are installed with apt-get.</p>
+                            <p>Unused by now, we provide the same functionality with package's dependencies</p>
+                        </li>
+                        
+                        <li><h4><a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/system/install.d">Install</a></h4>
+                            <p>Templates in this stage are run <b>only once</b> when KestrelCluster is installed/uninstalled on the system/image.</p>
+                        </li>
+                        
+                        <li><h4><a href="https://github.com/KestrelCluster/KestrelCluster/tree/master/share/system/configure.d">Configure</a></h4>
+                            <p>Templates in this stage are run each time you change any configuration parameter.</p>
+                        </li>                        
+                    </ol>
+                    
+                </div>
+                
+                <div id="Configuration">
+                    <h2>Configuration variables</h2>
+                    <p>Variables get their <i>default value</i> from the configuration files located at:</p>
+                    <ul>
+	                    <li>Default config file: <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/share/default.conf">/usr/share/kestrel/kestrel.conf</a></b></li>
+	                    <li>Internal config files: <a href="https://github.com/KestrelCluster/KestrelCluster/blob/master/share/default.d/internal_variables">/usr/share/kestrel/default.d/internal_variables</a>. 
+	                        <ul>
+	                            <li>Most of internal variables can not be overriden.</li>
+	                            <li>For example KESTREL_SHARE can be overriden to allow the scripts be relocatable.</li>
+	                            <li>Some scripts generate internal config files. For example ${KESTREL_SHARE}/default.d/internal_detected_os</li>
+	                        </ul>
+	                    </li>
+                    </ul>
+                    <p class="note">/usr/share/kestrel/* files should not be modified by a user because they will be overriden when a package is updated. They should modify /etc/kestrel/kestrel.conf instead.</p>
+                </div>
+                
+			    
+			    <div id="Developers">
+			        <h2>Development</h2>
+			        <h4>Mailing list:</h4>
+			        <dl>
+				        <dt>Mail to:</dt>
+				        <dd class="pre"><a href="mailto:kestrelhpc-developers@lists.sourceforge.net">kestrelhpc-developers@lists.sourceforge.net</a></dd>
+				        <dt>Suscribe or browse archives:</dt>
+				        <dd class="pre"><a href="https://lists.sourceforge.net/lists/listinfo/kestrelhpc-developers">https://lists.sourceforge.net/lists/listinfo/kestrelhpc-developers</a></dd>
+			        </dl>
+			
+			        <h4>Git</h4>
+			        <dl>
+				        <dt>Browse code online:</dt>
+				        <dd class="pre"><a href="https://github.com/KestrelCluster/KestrelCluster">https://github.com/KestrelCluster/KestrelCluster</a></dd>
+				        <dt>Download code:</dt>
+				        <dd class="pre">git clone git@github.com:jonanh/KestrelCluster.git</dd>
+			        </dl>
+				    
+				    <h2>Developers</h2>
+				    <ul>
+				        <li><a href="http://jonan.org">Jon Ander Hern&aacute;ndez</a>. 
+				            <ul>
+				                <li>Rewrote KestrelHPC 2 from scratch while on an unpaid summer intership at the CEIT (July - September 2010).</li>
+				                <li>Has been the unique developer since the rewrite of KestrelHPC 2.0 creating the new website, logo (avoiding posible copyright troubles) and documentation.</li>
+				                <li>Since the unpaid intership on the CEIT has continued developing KestrelHPC in his spare time and has not received any economic support for his work, he happily accepts donations :-).</li>
+				                <li>Developed KestrelHPC with the free software philosophy in mind with the aim of learning lots of Linux internals and sharing what could be a very useful tool.</li>
+				            </ul>
+				        </li>
+					    <li><a>Ander Mart&iacute;nez</a>
+					        <ul>
+					            <li>Wrote the plugin system of kestrel-daemon</li>
+					        </ul>
+					    </li>
+				        <li><a>Denis Sánchez Argoitia</a>. 
+				            <ul>
+				                <li>Wrote KestrelHPC 1.0 as his final project while studing at EHU/UPV with a paid intership at CEIT.</li>
+				                <li>KestrelHPC 1.0 was an script/package which installed the scripts and packages from PelicanHPC over a standard Debian installation.</li>
+				                <li>Directed Jon Ander Hernández while on his summer intership at the CEIT.</li>
+				            </ul>
+				        </li>
+				    </ul>
+				    
+				    <h4>Special thanks to:</h4>
+				    <ul>
+				        <li><a>MickD</a>
+				            <ul>
+        				        <li>Has been an important contributor reporting tons of issues of KestrelHPC 2.0, and helping to mature this project.</li>
+        				    </ul>
+				        </li>
+					    <li><a href="http://www.pelicanhpc.org/">Michael Creel</a>. 
+					        <ul>
+					            <li>He was a really important asset to the project.</li>
+					        </ul>
+					</ul>
 				
-				<h3>Internals</h3>
-				<ul>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/README?content-type=text/plain">README</a> (needs to be updated)</li>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/TODO?content-type=text/plain">ToDo List</a></li>
-				</ul>
-				
-				<h4>RPC and Daemon</h4>
-				<ul>
-					<li>KestrelHPC uses a <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/rpc/kestrel_rpc.py?content-type=text/plain">rpc server</a> written in python for event handling. Each event is passed to <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/kestrel-daemon?content-type=text/plain">kestrel-daemon</a> through a FIFO.</li>
-					<li>KestrelHPC <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/kestrel-daemon?content-type=text/plain">daemon</a> is written in bash script, reads events and their parameters from the FIFO and calls <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/event.d/">event.d scripts</a> using the function run_register_scripts located in <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/kestrel-lib?content-type=text/plain">kestrel-lib</a>.</li>
-					<li><a <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/kestrel-lib?content-type=text/plain">KestrelHPC's library</a> (kestrel-lib). Most of the functionality is implemented here.</a></li>
-				</ul>
-				
-				<h4>Configuration variables</h4>
-				<p>Variables get their <i>default value</i> form these configuration files located at : </p>
-				<ul>
-					<li> Default config file : <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/default.conf?revision=189&view=markup">/usr/share/kestrel/default.conf</a></b></li>
-					<li> Default config file of each module : <a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/default.d/">/usr/share/kestrel/default.d/*</a> </li>
-				</ul>
-				<p class="note">/usr/share/kestrel/* should not be modified by a user because they will be overriden when a package is updated. They should modify /etc/kestrel/kestrel.conf instead.</p>
-				
-				<h4>Event scripts</h4>
-				<ul>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/register.d/">Event scripts</a>. There scripts are executed when an event ocurrs (register/unregister/connect/disconnect).
-				</ul>
-				
-				<h4>Node scripts</h4>
-				<ul>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/install.d/">Node install scripts</a>. These scripts are executed when an image is created or deleted.</li>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/packages.d/">Node packages</a>. Packages to install on the images.</li>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/post-install.d/">Node post-install scripts</a>. These scripts are executed when an image is created or deleted, after installing the packages.</li>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/node/configure.d/">Node configure scripts</a>. These scripts are executed when the user reconfigures the system.
-					</li>
-				</ul>
-				<div class="note">If the script contains the word "chroot" then it is executed on the image under a chroot jail.</div>
-				
-				<h4>Frontend scripts</h4>
-				<ul>
-					<li><a href="http://kestrelhpc.svn.sourceforge.net/viewvc/kestrelhpc/Kestrelhpc/src/share/frontend/configure.d/">Frontend configure scripts</a>. These scripts are executed when the user reconfigures the system.</li></li>
-				</ul>
+				    <h2>Statistics</h2>
+				    <dl>
+					    <dt>Total Files</dt><dd><b>184</b></dd>
+			            <dt>Total Lines of Code</dt><dd><b>9622</b> (21591 added, 11969 removed)</dd>
+				        <dt>Total Commits</dt><dd><b>285</b> (average <b>5.4</b> commits per active day, 0.9 per all days)</dd>
+                        <dt>Authors</dt><dd><b>1</b> (average <b>285.0</b> commits per author)</dd>
+                    </dl>
+			    </div>
+			    
+			    
 			</div>
 		</div>
-	</body>
+	</div></body>
 </html>
